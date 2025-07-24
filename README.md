@@ -1,69 +1,30 @@
-# React + TypeScript + Vite
+# Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive portfolio website built to showcase my development projects and skills to potential employers. This project demonstrates proficiency in contemporary web development technologies and serves as a living example of clean, professional frontend development.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Frontend Framework:** React 18 with TypeScript for type-safe, component-based development
 
-## Expanding the ESLint configuration
+**Build Tool:** Vite for lightning-fast development and optimized production builds
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Styling:** Tailwind CSS for utility-first, responsive design
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Animations:** Framer Motion for smooth, professional animations and transitions
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+**Routing:** React Router for client-side navigation between pages
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Icons:** Lucide React for consistent, beautiful iconography
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Development:** Modern ES6+ JavaScript with TypeScript for enhanced developer experience
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Purpose
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+This portfolio website serves multiple goals:
+
+- **Professional Showcase:** Display my best projects with live demos, source code, and detailed explanations
+- **Skill Demonstration:** Prove competency in modern React development, responsive design, and TypeScript
+- **Personal Branding:** Create a memorable online presence that reflects my development style and attention to detail
+- **Job Search Tool:** Provide employers with an interactive way to explore my work and technical abilities
+
+The project emphasizes clean code architecture, responsive design principles, and modern development practices - all qualities that translate directly to professional software development roles.
