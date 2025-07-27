@@ -55,7 +55,7 @@ const MinimalPortfolio = () => {
       company: "Kinzoo Inc.",
       content: "Nathaniel was a pleasure to work with. Very patient with me as we built a Roblox Obby where I had a lot of questions. He took feedback and made changes quickly. Would (and most likely will) absolutely work with him again.",
       rating: 5,
-      project: "Kinzoo Enchanted Trail",
+      project: "Kinzoo Enchanted Trail - Roblox Game",
       date: "Oct 2024 - Feb 2025",
       avatar: "/api/placeholder/60/60"
     },
@@ -71,13 +71,24 @@ const MinimalPortfolio = () => {
     },
     {
       id: 3,
-      name: "Sean",
+      name: "Amanda Close",
       role: "Upwork Client",
       company: "Dark Roast Releasing LLC.",
       content: "Great developer, good communication and creative collaborator, problem solving initiative, and extremely knowledgable about the Roblox platform, assets, marketplace, and player base.",
       rating: 5,
-      project: "Laser Tag Hero",
+      project: "Laser Tag Hero - Roblox Game",
       date: "Aug 2024 - Jun 2025",
+      avatar: "/api/placeholder/60/60"
+    },
+    {
+      id: 4,
+      name: "Ely Santos Jr",
+      role: "Upwork Client",
+      company: "Ely's Agency",
+      content: "Nathaniel is great, he's a native Roblox player that understands the game really well and comes up with ideas that make sense within the Roblox context and solve technical challenges.",
+      rating: 5,
+      project: "Danger Spring - Roblox Game",
+      date: "Jan 2025 - Mar 2025",
       avatar: "/api/placeholder/60/60"
     }
   ];
@@ -271,7 +282,7 @@ const MinimalPortfolio = () => {
       <div className="flex gap-4 text-sm">
         {project.links.github && (
           <a
-            href={project.links.github}
+            href={project.links.github} target='_blank'
             className="text-orange-400 hover:text-orange-300 transition-colors flex items-center gap-1"
           >
             <Github className="w-4 h-4" />
@@ -280,7 +291,7 @@ const MinimalPortfolio = () => {
         )}
         {project.links.live && (
           <a
-            href={project.links.live}
+            href={project.links.live} target='_blank'
             className="text-orange-400 hover:text-orange-300 transition-colors flex items-center gap-1"
           >
             <ExternalLink className="w-4 h-4" />
