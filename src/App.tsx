@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, ExternalLink, Github, Code2, Folder, FolderOpen, ChevronRight, ChevronDown, Play, FileText, User, Briefcase, Linkedin, Mail, Globe, Twitter } from 'lucide-react';
+import { Calendar, ExternalLink, Github, Code2, Folder, FolderOpen, ChevronRight, ChevronDown, Play, FileText, User, Briefcase, Linkedin, Mail, Globe, Twitter, ChevronLeft, Quote, Star } from 'lucide-react';
 
 type ProjectStatus = 'In Progress' | 'Completed' | 'On Hold';
 type ProjectCategory = 'software' | 'roblox';
@@ -26,11 +26,61 @@ interface FolderState {
   roblox: boolean;
 }
 
+interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  company?: string;
+  content: string;
+  rating: number;
+  project: string;
+  date: string;
+  avatar?: string;
+}
+
 const MinimalPortfolio = () => {
   const [expandedFolders, setExpandedFolders] = useState<FolderState>({
     software: true,
     roblox: false
   });
+
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+
+  // Sample testimonials - replace with your actual client reviews
+  const testimonials: Testimonial[] = [
+    {
+      id: 1,
+      name: "Sean Herman",
+      role: "Upwork Client",
+      company: "Kinzoo Inc.",
+      content: "Nathaniel was a pleasure to work with. Very patient with me as we built a Roblox Obby where I had a lot of questions. He took feedback and made changes quickly. Would (and most likely will) absolutely work with him again.",
+      rating: 5,
+      project: "Kinzoo Enchanted Trail",
+      date: "Oct 2024 - Feb 2025",
+      avatar: "/api/placeholder/60/60"
+    },
+    {
+      id: 2,
+      name: "Michael Dezayas",
+      role: "Upwork Client",
+      content: "This guy is great, he's very polite and patient when it comes to sorting things out during projects.I would most definitely recommended him to others looking for scripting, animating and overall help regarding roblox studio. 10/10 rating.",
+      rating: 5,
+      project: "Whispering Pines - Roblox Game",
+      date: "Jan 2024 - Present",
+      avatar: "/api/placeholder/60/60"
+    },
+    {
+      id: 3,
+      name: "Sean",
+      role: "Upwork Client",
+      company: "Dark Roast Releasing LLC.",
+      content: "Great developer, good communication and creative collaborator, problem solving initiative, and extremely knowledgable about the Roblox platform, assets, marketplace, and player base.",
+      rating: 5,
+      project: "Laser Tag Hero",
+      date: "Aug 2024 - Jun 2025",
+      avatar: "/api/placeholder/60/60"
+    }
+  ];
 
   // All projects in chronological order (most recent first)
   const allProjects: Project[] = [
@@ -59,29 +109,10 @@ const MinimalPortfolio = () => {
       category: "software",
       technologies: ["PHP", "CSS", "JavaScript", "MySQL", "MariaDB"],
       links: {
-        github: "https://github.com/nmerck1/Life_Management",
-        //live: "https://dashboard-demo.com"
+        github: "https://github.com/nmerck1/Life_Management"
       },
       image: "/api/placeholder/400/200"
     },
-    /*
-    {
-      id: 3,
-      title: "Task Management App",
-      description: "Collaborative task management application with real-time updates, drag-and-drop functionality, and team workspace features.",
-      date: "October 2024",
-      dateISO: "2024-10-20",
-      status: "Completed",
-      category: "software",
-      technologies: ["React", "Firebase", "Material-UI", "Socket.io"],
-      links: {
-        github: "https://github.com/yourusername/task-manager",
-        live: "https://taskapp-demo.com"
-      },
-      image: "/api/placeholder/400/200"
-    },
-    */
-    
     {
       id: 4,
       title: "Kinzoo Enchanted Trail",
@@ -92,8 +123,7 @@ const MinimalPortfolio = () => {
       category: "roblox",
       technologies: ["Lua", "Roblox Studio", "TweenService", "BodyVelocity", "DataStore", "RemoteEvents"],
       links: {
-        roblox: "https://www.roblox.com/games/136071239388244/Kinzoo-Enchanted-Trail",
-        //github: "https://github.com/yourusername/racing-game"
+        roblox: "https://www.roblox.com/games/136071239388244/Kinzoo-Enchanted-Trail"
       },
       image: "/api/placeholder/400/200"
     },
@@ -107,8 +137,7 @@ const MinimalPortfolio = () => {
       category: "roblox",
       technologies: ["Lua", "Roblox Studio", "DataStore", "RemoteEvents", "TweenService"],
       links: {
-        roblox: "https://www.roblox.com/games/18610939216/Future-RNG",
-        //github: "https://github.com/yourusername/zombie-survival"
+        roblox: "https://www.roblox.com/games/18610939216/Future-RNG"
       },
       image: "/api/placeholder/400/200"
     },
@@ -161,6 +190,25 @@ const MinimalPortfolio = () => {
       ...prev,
       [folder]: !prev[folder]
     }));
+  };
+
+  const nextTestimonial = () => {
+    setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <Star
+        key={i}
+        className={`w-4 h-4 ${
+          i < rating ? 'text-orange-400 fill-orange-400' : 'text-gray-600'
+        }`}
+      />
+    ));
   };
 
   const getStatusColor = (status: ProjectStatus): string => {
@@ -252,6 +300,8 @@ const MinimalPortfolio = () => {
     </div>
   );
 
+  const currentTestimonial = testimonials[currentTestimonialIndex];
+
   return (
     <div className="min-h-screen bg-black text-gray-300 font-mono">
       {/* Minimal Header */}
@@ -341,6 +391,118 @@ const MinimalPortfolio = () => {
                 {getProjectsByCategory('roblox').map((project, index) => renderProject(project, index))}
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Client Testimonials Section */}
+        <div className="mt-20 pt-16 border-t border-gray-800">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-light text-white mb-4">Client Testimonials</h2>
+            <p className="text-gray-400">What clients say about working with me</p>
+          </div>
+
+          {/* Main Testimonial Display */}
+          <div className="relative">
+            <div className="bg-gray-900 border border-gray-800 rounded-lg p-8 mb-8 h-80 flex flex-col">
+              {/* Quote Icon */}
+              <Quote className="w-8 h-0 text-orange-400 mb-6 flex-shrink-0" />
+              
+              {/* Testimonial Content - Fixed height with scroll if needed */}
+              <div className="flex-1 mb-6 overflow-y-auto">
+                <blockquote className="text-lg text-gray-300 leading-relaxed">
+                  "{currentTestimonial.content}"
+                </blockquote>
+              </div>
+
+              {/* Rating */}
+              <div className="flex items-center gap-2 mb-6 flex-shrink-0">
+                {renderStars(currentTestimonial.rating)}
+                <span className="text-sm text-gray-400 ml-2">
+                  {currentTestimonial.rating}/5 stars
+                </span>
+              </div>
+
+              {/* Client Info */}
+              <div className="flex items-center justify-between flex-shrink-0">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center">
+                    <User className="w-6 h-6 text-gray-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">{currentTestimonial.name}</p>
+                    <p className="text-sm text-gray-400">
+                      {currentTestimonial.role}
+                      {currentTestimonial.company && ` at ${currentTestimonial.company}`}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-orange-400">{currentTestimonial.project}</p>
+                  <p className="text-xs text-gray-500">{currentTestimonial.date}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            {testimonials.length > 1 && (
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={prevTestimonial}
+                  className="flex items-center gap-2 text-gray-400 hover:text-orange-400 transition-colors"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                  Previous
+                </button>
+
+                {/* Dots Indicator */}
+                <div className="flex gap-2">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentTestimonialIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        index === currentTestimonialIndex ? 'bg-orange-400' : 'bg-gray-600'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={nextTestimonial}
+                  className="flex items-center gap-2 text-gray-400 hover:text-orange-400 transition-colors"
+                >
+                  Next
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-8 mt-16 text-center">
+            <div>
+              <p className="text-2xl font-light text-white mb-2">
+                {testimonials.length}+
+              </p>
+              <p className="text-gray-400 text-sm uppercase tracking-wider">
+                Happy Clients
+              </p>
+            </div>
+            <div>
+              <p className="text-2xl font-light text-white mb-2">
+                {testimonials.reduce((acc, t) => acc + t.rating, 0) / testimonials.length}
+                /5
+              </p>
+              <p className="text-gray-400 text-sm uppercase tracking-wider">
+                Average Rating
+              </p>
+            </div>
+            <div>
+              <p className="text-2xl font-light text-white mb-2">100%</p>
+              <p className="text-gray-400 text-sm uppercase tracking-wider">
+                Project Success
+              </p>
+            </div>
           </div>
         </div>
 
