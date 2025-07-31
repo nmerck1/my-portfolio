@@ -94,7 +94,7 @@ const MinimalOrangePortfolio = () => {
       dateISO: "2025-08-01",
       status: "In Progress",
       category: "software",
-      technologies: ["C#", "React", "Tailwind CSS", "Cloudflare"],
+      technologies: ["Go", "React", "Tailwind CSS", "Cloudflare"],
       links: {
         github: "https://github.com/nmerck1/Pi-Plant",
         live: "https://nathanielmerck.com"
