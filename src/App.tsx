@@ -89,7 +89,7 @@ const MinimalOrangePortfolio = () => {
     {
       id: 1,
       title: "Pi-Plant App",
-      description: "A plant health monitoring app that runs on C# and uses React front-end. It uses physical sensors for things like data collection. It is hosted on my raspberry pi home server.",
+      description: "A plant health monitoring app that uses Go back-end and uses React front-end. It uses physical sensors for things like data collection. It is hosted on my raspberry pi home server.",
       date: "August 2025",
       dateISO: "2025-08-01",
       status: "In Progress",
