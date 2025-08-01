@@ -31,7 +31,7 @@ The project emphasizes clean code architecture, responsive design principles, an
 
 - **GitHub**: [github.com/nmerck1](https://github.com/nmerck1)
 - **Roblox Profile**: [roblox.com/users/22010705/profile](https://www.roblox.com/users/22010705/profile)
-- **Portfolio Website**: Offline
+- **Portfolio Website**: [nathanielmerck.com](https://nathanielmerck.com)
 
 ---
 
