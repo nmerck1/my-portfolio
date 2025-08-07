@@ -28,3 +28,11 @@ This portfolio website serves multiple goals:
 - **Job Search Tool:** Provide employers with an interactive way to explore my work and technical abilities
 
 The project emphasizes clean code architecture, responsive design principles, and modern development practices - all qualities that translate directly to professional software development roles.
+
+- **GitHub**: [github.com/nmerck1](https://github.com/nmerck1)
+- **Roblox Profile**: [roblox.com/users/22010705/profile](https://www.roblox.com/users/22010705/profile)
+- **Portfolio Website**: [nathanielmerck.com](https://nathanielmerck.com)
+
+---
+
+*Always learning, always building* 🚀
