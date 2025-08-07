@@ -94,7 +94,7 @@ const MinimalOrangePortfolio = () => {
       dateISO: "2025-08-01",
       status: "In Progress",
       category: "software",
-      technologies: ["Go", "React", "Tailwind CSS", "Cloudflare"],
+      technologies: ["Go", "React", "TypeScript", "Tailwind CSS", "Raspberry Pi 4", "Cloudflare"],
       links: {
         github: "https://github.com/nmerck1/Pi-Plant",
         live: "https://nathanielmerck.com"
@@ -208,7 +208,7 @@ const MinimalOrangePortfolio = () => {
       <Star
         key={i}
         className={`w-3 h-3 ${
-          i < rating ? 'text-orange-400 fill-orange-400' : 'text-gray-600'
+          i < rating ? 'text-cyan-400 fill-cyan-400' : 'text-slate-500'
         }`}
       />
     ));
@@ -217,13 +217,13 @@ const MinimalOrangePortfolio = () => {
   const getStatusColor = (status: ProjectStatus): string => {
     switch (status) {
       case 'In Progress':
-        return 'text-orange-400 bg-orange-400/10 border-orange-400/30';
+        return 'text-cyan-400 bg-cyan-400/10 border-cyan-400/30';
       case 'Completed':
-        return 'text-orange-300 bg-orange-300/10 border-orange-300/30';
+        return 'text-emerald-400 bg-emerald-400/10 border-emerald-400/30';
       case 'On Hold':
-        return 'text-gray-400 bg-gray-400/10 border-gray-400/30';
+        return 'text-slate-400 bg-slate-400/10 border-slate-400/30';
       default:
-        return 'text-gray-400 bg-gray-400/10 border-gray-400/30';
+        return 'text-slate-400 bg-slate-400/10 border-slate-400/30';
     }
   };
 
@@ -239,35 +239,35 @@ const MinimalOrangePortfolio = () => {
     const currentProject = allProjects[currentProjectIndex];
     
     return (
-      <div className="bg-gray-950 border border-gray-800 rounded-lg p-8">
+      <div className="bg-slate-800/40 border border-slate-700/50 rounded-lg p-8 backdrop-blur-sm">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Project Details */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="text-orange-400">
+              <div className="text-cyan-400">
                 {getCategoryIcon(currentProject.category)}
               </div>
               <div>
-                <h3 className="text-2xl font-medium text-white">{currentProject.title}</h3>
-                <p className="text-gray-400 text-sm">{currentProject.date}</p>
+                <h3 className="text-2xl font-medium text-slate-100">{currentProject.title}</h3>
+                <p className="text-slate-400 text-sm">{currentProject.date}</p>
               </div>
               <span className={`text-xs px-2 py-1 rounded border ${getStatusColor(currentProject.status)} ml-auto`}>
                 {currentProject.status}
               </span>
             </div>
 
-            <p className="text-gray-300 leading-relaxed mb-6 text-base">
+            <p className="text-slate-300 leading-relaxed mb-6 text-base">
               {currentProject.description}
             </p>
 
             {/* Technologies */}
             <div className="mb-6">
-              <h4 className="text-white text-sm font-medium mb-3">Technologies Used</h4>
+              <h4 className="text-slate-100 text-sm font-medium mb-3">Technologies Used</h4>
               <div className="flex flex-wrap gap-2">
                 {currentProject.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="text-sm text-gray-300 bg-gray-800 border border-gray-700 px-3 py-1.5 rounded hover:border-orange-400/50 hover:text-orange-400 transition-colors"
+                    className="text-sm text-slate-300 bg-slate-700/50 border border-slate-600 px-3 py-1.5 rounded hover:border-cyan-400/50 hover:text-cyan-400 transition-colors"
                   >
                     {tech}
                   </span>
@@ -282,7 +282,7 @@ const MinimalOrangePortfolio = () => {
                   href={currentProject.links.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-orange-400 hover:bg-orange-300 text-black px-4 py-2 rounded transition-colors flex items-center gap-2 font-medium"
+                  className="bg-cyan-500 hover:bg-cyan-400 text-white px-4 py-2 rounded transition-colors flex items-center gap-2 font-medium"
                 >
                   <Github className="w-4 h-4" />
                   View Code
@@ -293,7 +293,7 @@ const MinimalOrangePortfolio = () => {
                   href={currentProject.links.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-black px-4 py-2 rounded transition-colors flex items-center gap-2"
+                  className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-4 py-2 rounded transition-colors flex items-center gap-2"
                 >
                   <ExternalLink className="w-4 h-4" />
                   Live Demo
@@ -304,7 +304,7 @@ const MinimalOrangePortfolio = () => {
                   href={currentProject.links.roblox}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-black px-4 py-2 rounded transition-colors flex items-center gap-2"
+                  className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-4 py-2 rounded transition-colors flex items-center gap-2"
                 >
                   <Play className="w-4 h-4" />
                   Play Game
@@ -317,14 +317,14 @@ const MinimalOrangePortfolio = () => {
           <div className="space-y-6">
             {/* Project Navigation */}
             <div className="text-center">
-              <p className="text-gray-400 text-sm mb-4">
+              <p className="text-slate-400 text-sm mb-4">
                 Project {currentProjectIndex + 1} of {allProjects.length}
               </p>
               
               <div className="flex items-center justify-center gap-4 mb-4">
                 <button
                   onClick={prevProject}
-                  className="text-gray-400 hover:text-orange-400 transition-colors"
+                  className="text-slate-400 hover:text-cyan-400 transition-colors"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
@@ -335,7 +335,7 @@ const MinimalOrangePortfolio = () => {
                       key={index}
                       onClick={() => setCurrentProjectIndex(index)}
                       className={`w-2 h-2 rounded-full transition-colors ${
-                        index === currentProjectIndex ? 'bg-orange-400' : 'bg-gray-600'
+                        index === currentProjectIndex ? 'bg-cyan-400' : 'bg-slate-500'
                       }`}
                     />
                   ))}
@@ -343,7 +343,7 @@ const MinimalOrangePortfolio = () => {
                 
                 <button
                   onClick={nextProject}
-                  className="text-gray-400 hover:text-orange-400 transition-colors"
+                  className="text-slate-400 hover:text-cyan-400 transition-colors"
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
@@ -353,16 +353,16 @@ const MinimalOrangePortfolio = () => {
             {/* Category Stats */}
             <div className="space-y-4">
               <div className="text-center">
-                <p className="text-lg font-light text-white mb-1">{allProjects.length}</p>
-                <p className="text-gray-400 text-xs uppercase tracking-wider">Total Projects</p>
+                <p className="text-lg font-light text-slate-100 mb-1">{allProjects.length}</p>
+                <p className="text-slate-400 text-xs uppercase tracking-wider">Total Projects</p>
               </div>
               <div className="text-center">
-                <p className="text-lg font-light text-white mb-1">{getProjectsByCategory('software').length}</p>
-                <p className="text-gray-400 text-xs uppercase tracking-wider">Software Apps</p>
+                <p className="text-lg font-light text-slate-100 mb-1">{getProjectsByCategory('software').length}</p>
+                <p className="text-slate-400 text-xs uppercase tracking-wider">Software Apps</p>
               </div>
               <div className="text-center">
-                <p className="text-lg font-light text-white mb-1">{getProjectsByCategory('roblox').length}</p>
-                <p className="text-gray-400 text-xs uppercase tracking-wider">Games Created</p>
+                <p className="text-lg font-light text-slate-100 mb-1">{getProjectsByCategory('roblox').length}</p>
+                <p className="text-slate-400 text-xs uppercase tracking-wider">Games Created</p>
               </div>
             </div>
           </div>
@@ -374,13 +374,13 @@ const MinimalOrangePortfolio = () => {
   const currentTestimonial = testimonials[currentTestimonialIndex];
 
   return (
-    <div className="min-h-screen bg-black text-gray-300 font-mono">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-300 font-mono">
       {/* Header */}
-      <header className="border-b border-gray-800 bg-gray-950">
+      <header className="border-b border-slate-700/50 bg-slate-800/30 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-light text-white mb-2">Nathaniel Merck</h1>
-            <p className="text-orange-400 text-lg mb-6">Full Stack Software Engineer | Game Developer</p>
+            <h1 className="text-4xl font-light text-slate-100 mb-2">Nathaniel Merck</h1>
+            <p className="text-cyan-400 text-lg mb-6">Full Stack Software Engineer | Game Developer</p>
           </div>
         </div>
       </header>
@@ -390,44 +390,44 @@ const MinimalOrangePortfolio = () => {
         {/* Projects Carousel */}
         <div className="mb-12">
           <div className="mb-6">
-            <h2 className="text-xl font-light text-white mb-2">Featured Projects</h2>
-            <p className="text-gray-400 text-sm">Browse through my portfolio</p>
+            <h2 className="text-xl font-light text-slate-100 mb-2">Featured Projects</h2>
+            <p className="text-slate-400 text-sm">Browse through my portfolio</p>
           </div>
 
           {renderProjectCarousel()}
         </div>
 
         {/* Compact Testimonials Section */}
-        <div id="testimonials-section" className="border-t border-gray-800 pt-8">
+        <div id="testimonials-section" className="border-t border-slate-700/50 pt-8">
           <div className="mb-6">
-            <h2 className="text-xl font-light text-white mb-2">Client Reviews</h2>
-            <p className="text-gray-400 text-sm">Feedback from satisfied clients</p>
+            <h2 className="text-xl font-light text-slate-100 mb-2">Client Reviews</h2>
+            <p className="text-slate-400 text-sm">Feedback from satisfied clients</p>
           </div>
 
           {/* Compact Testimonial Display */}
-          <div className="bg-gray-950 border border-gray-800 rounded-lg p-6">
+          <div className="bg-slate-800/40 border border-slate-700/50 rounded-lg p-6 backdrop-blur-sm">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Current Testimonial */}
               <div className="lg:col-span-2">
                 <div className="flex items-center gap-2 mb-3">
                   {renderStars(currentTestimonial.rating)}
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-slate-400">
                     {currentTestimonial.rating}/5 stars
                   </span>
                 </div>
                 
-                <blockquote className="text-gray-300 leading-relaxed mb-4 text-sm">
+                <blockquote className="text-slate-300 leading-relaxed mb-4 text-sm">
                   "{currentTestimonial.content}"
                 </blockquote>
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-white font-medium text-sm">{currentTestimonial.name}</p>
-                    <p className="text-gray-400 text-xs">
+                    <p className="text-slate-100 font-medium text-sm">{currentTestimonial.name}</p>
+                    <p className="text-slate-400 text-xs">
                       {currentTestimonial.role}
                       {currentTestimonial.company && ` at ${currentTestimonial.company}`}
                     </p>
-                    <p className="text-orange-400 text-xs">{currentTestimonial.project}</p>
+                    <p className="text-cyan-400 text-xs">{currentTestimonial.project}</p>
                   </div>
                   
                   {/* Navigation */}
@@ -435,7 +435,7 @@ const MinimalOrangePortfolio = () => {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={prevTestimonial}
-                        className="text-gray-400 hover:text-orange-400 transition-colors"
+                        className="text-slate-400 hover:text-cyan-400 transition-colors"
                       >
                         <ChevronLeft className="w-4 h-4" />
                       </button>
@@ -445,14 +445,14 @@ const MinimalOrangePortfolio = () => {
                             key={index}
                             onClick={() => setCurrentTestimonialIndex(index)}
                             className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                              index === currentTestimonialIndex ? 'bg-orange-400' : 'bg-gray-600'
+                              index === currentTestimonialIndex ? 'bg-cyan-400' : 'bg-slate-500'
                             }`}
                           />
                         ))}
                       </div>
                       <button
                         onClick={nextTestimonial}
-                        className="text-gray-400 hover:text-orange-400 transition-colors"
+                        className="text-slate-400 hover:text-cyan-400 transition-colors"
                       >
                         <ChevronRight className="w-4 h-4" />
                       </button>
@@ -464,14 +464,14 @@ const MinimalOrangePortfolio = () => {
               {/* Stats */}
               <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
                 <div className="text-center">
-                  <p className="text-lg font-light text-white mb-1">{testimonials.length}+</p>
-                  <p className="text-gray-400 text-xs uppercase tracking-wider">Happy Clients</p>
+                  <p className="text-lg font-light text-slate-100 mb-1">{testimonials.length}+</p>
+                  <p className="text-slate-400 text-xs uppercase tracking-wider">Happy Clients</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-lg font-light text-white mb-1">
+                  <p className="text-lg font-light text-slate-100 mb-1">
                     {(testimonials.reduce((acc, t) => acc + t.rating, 0) / testimonials.length).toFixed(1)}/5
                   </p>
-                  <p className="text-gray-400 text-xs uppercase tracking-wider">Average Rating</p>
+                  <p className="text-slate-400 text-xs uppercase tracking-wider">Average Rating</p>
                 </div>
               </div>
             </div>
@@ -479,8 +479,8 @@ const MinimalOrangePortfolio = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-6 border-t border-gray-800 text-center">
-          <p className="text-gray-500 text-xs">
+        <div className="mt-12 pt-6 border-t border-slate-700/50 text-center">
+          <p className="text-slate-500 text-xs">
             Built with React, TypeScript & Tailwind CSS
           </p>
         </div>
