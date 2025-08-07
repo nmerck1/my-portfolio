@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ExternalLink, Github, Code2, Play, FileText, ChevronLeft, ChevronRight, Star, X } from 'lucide-react';
 
 type ProjectStatus = 'In Progress' | 'Completed' | 'On Hold';
