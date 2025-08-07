@@ -281,35 +281,38 @@ const MinimalPortfolio = () => {
     const currentProject = allProjects[currentProjectIndex];
     
     return (
-      <div className="bg-slate-800/40 border border-slate-700/50 rounded-lg p-8 backdrop-blur-sm">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="bg-slate-800/40 border border-slate-700/50 rounded-lg p-8 backdrop-blur-sm min-h-[400px]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 min-h-[336px]">
           {/* Project Details */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
+          <div className="lg:col-span-2 flex flex-col min-h-[336px]">
+            <div className="flex items-center gap-3 mb-4 flex-shrink-0">
               <div className="text-cyan-400">
                 {getCategoryIcon(currentProject.category)}
               </div>
-              <div>
+              <div className="flex-1">
                 <h3 className="text-2xl font-medium text-slate-100">{currentProject.title}</h3>
                 <p className="text-slate-400 text-sm">{currentProject.date}</p>
               </div>
-              <span className={`text-xs px-2 py-1 rounded border ${getStatusColor(currentProject.status)} ml-auto`}>
+              <span className={`text-xs px-2 py-1 rounded border ${getStatusColor(currentProject.status)} flex-shrink-0`}>
                 {currentProject.status}
               </span>
             </div>
 
-            <p className="text-slate-300 leading-relaxed mb-6 text-base">
-              {currentProject.description}
-            </p>
+            {/* Description with fixed height */}
+            <div className="h-20 mb-6 flex-shrink-0 overflow-hidden">
+              <p className="text-slate-300 leading-relaxed text-base">
+                {currentProject.description}
+              </p>
+            </div>
 
-            {/* Technologies */}
-            <div className="mb-6">
+            {/* Technologies with fixed space */}
+            <div className="mb-6 flex-shrink-0">
               <h4 className="text-slate-100 text-sm font-medium mb-3">Technologies Used</h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 h-16 overflow-hidden">
                 {currentProject.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="text-sm text-slate-300 bg-slate-700/50 border border-slate-600 px-3 py-1.5 rounded hover:border-cyan-400/50 hover:text-cyan-400 transition-colors"
+                    className="text-sm text-slate-300 bg-slate-700/50 border border-slate-600 px-3 py-1.5 rounded hover:border-cyan-400/50 hover:text-cyan-400 transition-colors h-fit"
                   >
                     {tech}
                   </span>
@@ -317,11 +320,11 @@ const MinimalPortfolio = () => {
               </div>
             </div>
 
-            {/* Links */}
-            <div className="flex gap-4 flex-wrap">
+            {/* Links fixed at bottom */}
+            <div className="flex gap-3 flex-wrap mt-auto">
               <button
                 onClick={() => setSelectedProject(currentProject)}
-                className="bg-slate-700 hover:bg-slate-600 text-slate-100 px-4 py-2 rounded transition-colors flex items-center gap-2 font-medium"
+                className="bg-slate-700 hover:bg-slate-600 text-slate-100 px-4 py-2 rounded transition-colors flex items-center gap-2 font-medium text-sm"
               >
                 <FileText className="w-4 h-4" />
                 View Details
@@ -331,7 +334,7 @@ const MinimalPortfolio = () => {
                   href={currentProject.links.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-cyan-500 hover:bg-cyan-400 text-white px-4 py-2 rounded transition-colors flex items-center gap-2 font-medium"
+                  className="bg-cyan-500 hover:bg-cyan-400 text-white px-4 py-2 rounded transition-colors flex items-center gap-2 font-medium text-sm"
                 >
                   <Github className="w-4 h-4" />
                   View Code
@@ -342,7 +345,7 @@ const MinimalPortfolio = () => {
                   href={currentProject.links.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-4 py-2 rounded transition-colors flex items-center gap-2"
+                  className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-4 py-2 rounded transition-colors flex items-center gap-2 text-sm"
                 >
                   <ExternalLink className="w-4 h-4" />
                   Live Demo
@@ -353,7 +356,7 @@ const MinimalPortfolio = () => {
                   href={currentProject.links.roblox}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-4 py-2 rounded transition-colors flex items-center gap-2"
+                  className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-4 py-2 rounded transition-colors flex items-center gap-2 text-sm"
                 >
                   <Play className="w-4 h-4" />
                   Play Game
@@ -363,7 +366,7 @@ const MinimalPortfolio = () => {
           </div>
 
           {/* Navigation & Stats */}
-          <div className="space-y-6">
+          <div className="space-y-6 flex flex-col justify-center min-h-[336px]">
             {/* Project Navigation */}
             <div className="text-center">
               <p className="text-slate-400 text-sm mb-4">
@@ -454,10 +457,10 @@ const MinimalPortfolio = () => {
           </div>
 
           {/* Compact Testimonial Display */}
-          <div className="bg-slate-800/40 border border-slate-700/50 rounded-lg p-6 backdrop-blur-sm">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="bg-slate-800/40 border border-slate-700/50 rounded-lg p-6 backdrop-blur-sm h-[240px]">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
               {/* Current Testimonial */}
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-2 flex flex-col">
                 <div className="flex items-center gap-2 mb-3">
                   {renderStars(currentTestimonial.rating)}
                   <span className="text-xs text-slate-400">
@@ -465,11 +468,11 @@ const MinimalPortfolio = () => {
                   </span>
                 </div>
                 
-                <blockquote className="text-slate-300 leading-relaxed mb-4 text-sm">
+                <blockquote className="text-slate-300 leading-relaxed mb-4 text-sm flex-1 overflow-hidden line-clamp-6">
                   "{currentTestimonial.content}"
                 </blockquote>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mt-auto">
                   <div>
                     <p className="text-slate-100 font-medium text-sm">{currentTestimonial.name}</p>
                     <p className="text-slate-400 text-xs">
@@ -511,7 +514,7 @@ const MinimalPortfolio = () => {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 items-center">
                 <div className="text-center">
                   <p className="text-lg font-light text-slate-100 mb-1">{testimonials.length}+</p>
                   <p className="text-slate-400 text-xs uppercase tracking-wider">Happy Clients</p>
