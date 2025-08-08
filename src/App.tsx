@@ -94,7 +94,7 @@ const MinimalPortfolio = () => {
   const allProjects: Project[] = [
     {
       id: 1,
-      title: "Pi-Plant App COOL CI/CD PIPELINES WORK MAYBE??? PLEASE GOD... JUST WORK",
+      title: "Pi-Plant App PIPELINES WORK PLEASE THIS TIME IM BEGGING YOU",
       description: "A plant health monitoring app that uses Go back-end and uses React front-end. It uses physical sensors for things like data collection. It is hosted on my raspberry pi home server.",
       fullDescription: "A comprehensive IoT plant monitoring system that combines hardware sensors with modern web technologies. The application tracks soil moisture, temperature, humidity, and light levels in real-time, providing actionable insights to plant owners through an intuitive web interface.",
       date: "August 2025",
