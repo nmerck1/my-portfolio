@@ -3,8 +3,6 @@ name: Deploy to Raspberry Pi
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   deploy:
@@ -20,10 +18,9 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.PORT || 22 }}
         script: |
-          cd ~/LivePortfolioWebsite/my-portfolio
+          cd /home/nmerck1/LivePortfolioWebsite/my-portfolio
           git pull origin main
-          # Add any build commands here if needed
-          # npm install && npm run build
+          npm install
+          npm run build
           sudo systemctl reload nginx
