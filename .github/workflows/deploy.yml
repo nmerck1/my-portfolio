@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted  # This makes it run on my Pi!
+    runs-on: self-hosted
     
     steps:
     - name: Checkout code
@@ -16,6 +16,11 @@ jobs:
       run: |
         npm install
         npm run build
+        
+    - name: Copy built files to web directory
+      run: |
+        # Copy the built dist folder to where nginx serves from
+        sudo cp -r dist/* /home/nmerck1/LivePortfolioWebsite/my-portfolio/dist/
         
     - name: Reload web server
       run: |
