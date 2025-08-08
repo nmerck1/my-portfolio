@@ -19,8 +19,9 @@ jobs:
         
     - name: Copy built files to web directory
       run: |
-        # Copy the built dist folder to where nginx serves from
-        sudo cp -r dist/* /home/nmerck1/LivePortfolioWebsite/my-portfolio/dist/
+        # Remove old files and copy new ones (no sudo needed)
+        rm -rf /home/nmerck1/LivePortfolioWebsite/my-portfolio/dist/*
+        cp -r dist/* /home/nmerck1/LivePortfolioWebsite/my-portfolio/dist/
         
     - name: Reload web server
       run: |
