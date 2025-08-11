@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { ExternalLink, Github, Code2, Play, FileText, ChevronLeft, ChevronRight, Star, X } from 'lucide-react';
+import { ExternalLink, Github, Code2, Play, FileText, ChevronLeft, ChevronRight, Star, X, User, Briefcase, Building } from 'lucide-react';
 
 type ProjectStatus = 'In Progress' | 'Completed' | 'On Hold';
-type ProjectCategory = 'software' | 'roblox';
+type ProjectCategory = 'personal' | 'freelance' | 'professional';
 
 interface Project {
   id: number;
@@ -14,6 +14,7 @@ interface Project {
   status: ProjectStatus;
   technologies: string[];
   category: ProjectCategory;
+  type: 'software' | 'roblox';
   links: {
     github?: string;
     live?: string;
@@ -39,7 +40,9 @@ interface Testimonial {
 }
 
 const MinimalPortfolio = () => {
-  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [currentPersonalIndex, setCurrentPersonalIndex] = useState(0);
+  const [currentFreelanceIndex, setCurrentFreelanceIndex] = useState(0);
+  const [currentProfessionalIndex, setCurrentProfessionalIndex] = useState(0);
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -90,17 +93,19 @@ const MinimalPortfolio = () => {
     }
   ];
 
-  // All projects
+  // All projects organized by category
   const allProjects: Project[] = [
+    // Personal Projects
     {
       id: 1,
       title: "Pi-Plant App",
-      description: "A plant health monitoring app that uses Go back-end and uses React front-end. It uses physical sensors for things like data collection. It is hosted on my raspberry pi home server.",
+      description: "IoT plant monitoring with Go backend, React frontend, and Raspberry Pi sensors.",
       fullDescription: "A comprehensive IoT plant monitoring system that combines hardware sensors with modern web technologies. The application tracks soil moisture, temperature, humidity, and light levels in real-time, providing actionable insights to plant owners through an intuitive web interface.",
       date: "August 2025",
       dateISO: "2025-08-01",
       status: "In Progress",
-      category: "software",
+      category: "personal",
+      type: "software",
       technologies: ["Go", "React", "TypeScript", "Tailwind CSS", "Raspberry Pi 4", "Cloudflare"],
       links: {
         github: "https://github.com/nmerck1/Pi-Plant",
@@ -129,12 +134,13 @@ const MinimalPortfolio = () => {
     {
       id: 2,
       title: "Life Management Web App",
-      description: "Full-stack website used for managing and monitoring individual's finances.",
+      description: "Full-stack personal finance tracker with budgeting and reporting.",
       fullDescription: "A comprehensive personal finance management system built to help individuals track expenses, set budgets, and monitor their financial goals. Features secure user authentication, transaction categorization, and detailed reporting capabilities.",
       date: "December 2021",
       dateISO: "2021-12-01",
       status: "Completed",
-      category: "software",
+      category: "personal",
+      type: "software",
       technologies: ["PHP", "CSS", "JavaScript", "MySQL", "MariaDB"],
       links: {
         github: "https://github.com/nmerck1/Life_Management"
@@ -160,48 +166,15 @@ const MinimalPortfolio = () => {
       ]
     },
     {
-      id: 4,
-      title: "Kinzoo Enchanted Trail",
-      description: "Cutesy parkour/obby based in an enchanted forest. The game features puzzles, hidden areas, and a shop. (This project was created for my client Sean Herman).",
-      fullDescription: "A family-friendly Roblox adventure game featuring challenging parkour sections, interactive puzzles, and exploration elements set in a magical forest environment. Designed specifically for the Kinzoo brand to engage young players in a safe, educational gaming experience.",
-      date: "November 2024",
-      dateISO: "2024-11-01",
-      status: "Completed",
-      category: "roblox",
-      technologies: ["Lua", "Roblox Studio", "TweenService", "BodyVelocity", "DataStore", "RemoteEvents"],
-      links: {
-        roblox: "https://www.roblox.com/games/136071239388244/Kinzoo-Enchanted-Trail"
-      },
-      image: "/api/placeholder/400/200",
-      screenshots: ["/api/placeholder/800/400", "/api/placeholder/800/400", "/api/placeholder/800/400"],
-      challenges: [
-        "Creating age-appropriate gameplay that's challenging but not frustrating",
-        "Implementing smooth parkour mechanics with consistent physics",
-        "Designing puzzle systems that encourage problem-solving skills"
-      ],
-      achievements: [
-        "Delivered project 2 weeks ahead of schedule",
-        "Achieved 4.8/5 star rating from players",
-        "Successfully integrated client branding throughout game experience",
-        "Implemented anti-cheat systems for fair gameplay"
-      ],
-      keyFeatures: [
-        "Progressive difficulty parkour challenges",
-        "Interactive environmental puzzles",
-        "Hidden collectible system",
-        "In-game shop with virtual rewards",
-        "Child-safe multiplayer interactions"
-      ]
-    },
-    {
-      id: 5,
+      id: 3,
       title: "Future RNG",
-      description: "Multiplayer card rolling game with inventory management, and randomized card selection. Features advanced scripting and DataStore integration.",
+      description: "Multiplayer Roblox card game with inventory system and trading.",
       fullDescription: "A luck-based multiplayer game where players collect rare cards through randomized rolls. Features a complex rarity system, trading mechanics, and persistent inventory management. Built with scalable architecture to handle hundreds of concurrent players.",
       date: "July 2024",
       dateISO: "2024-07-01",
       status: "Completed",
-      category: "roblox",
+      category: "personal",
+      type: "roblox",
       technologies: ["Lua", "Roblox Studio", "DataStore", "RemoteEvents", "TweenService"],
       links: {
         roblox: "https://www.roblox.com/games/18610939216/Future-RNG"
@@ -226,15 +199,81 @@ const MinimalPortfolio = () => {
         "Rarity-based card collection",
         "Multiplayer social features"
       ]
+    },
+    // Freelance Projects
+    {
+      id: 4,
+      title: "Kinzoo Enchanted Trail",
+      description: "Family-friendly Roblox parkour game with puzzles and exploration.",
+      fullDescription: "A family-friendly Roblox adventure game featuring challenging parkour sections, interactive puzzles, and exploration elements set in a magical forest environment. Designed specifically for the Kinzoo brand to engage young players in a safe, educational gaming experience.",
+      date: "November 2024",
+      dateISO: "2024-11-01",
+      status: "Completed",
+      category: "freelance",
+      type: "roblox",
+      technologies: ["Lua", "Roblox Studio", "TweenService", "BodyVelocity", "DataStore", "RemoteEvents"],
+      links: {
+        roblox: "https://www.roblox.com/games/136071239388244/Kinzoo-Enchanted-Trail"
+      },
+      image: "/api/placeholder/400/200",
+      screenshots: ["/api/placeholder/800/400", "/api/placeholder/800/400", "/api/placeholder/800/400"],
+      challenges: [
+        "Creating age-appropriate gameplay that's challenging but not frustrating",
+        "Implementing smooth parkour mechanics with consistent physics",
+        "Designing puzzle systems that encourage problem-solving skills"
+      ],
+      achievements: [
+        "Delivered project 2 weeks ahead of schedule",
+        "Achieved 4.8/5 star rating from players",
+        "Successfully integrated client branding throughout game experience",
+        "Implemented anti-cheat systems for fair gameplay"
+      ],
+      keyFeatures: [
+        "Progressive difficulty parkour challenges",
+        "Interactive environmental puzzles",
+        "Hidden collectible system",
+        "In-game shop with virtual rewards",
+        "Child-safe multiplayer interactions"
+      ]
     }
   ];
 
-  const nextProject = () => {
-    setCurrentProjectIndex((prev) => (prev + 1) % allProjects.length);
+  const getProjectsByCategory = (category: ProjectCategory) => {
+    return allProjects.filter(project => project.category === category);
   };
 
-  const prevProject = () => {
-    setCurrentProjectIndex((prev) => (prev - 1 + allProjects.length) % allProjects.length);
+  const personalProjects = getProjectsByCategory('personal');
+  const freelanceProjects = getProjectsByCategory('freelance');
+  const professionalProjects = getProjectsByCategory('professional');
+
+  const nextProject = (category: ProjectCategory) => {
+    const projects = getProjectsByCategory(category);
+    switch(category) {
+      case 'personal':
+        setCurrentPersonalIndex((prev) => (prev + 1) % projects.length);
+        break;
+      case 'freelance':
+        setCurrentFreelanceIndex((prev) => (prev + 1) % projects.length);
+        break;
+      case 'professional':
+        setCurrentProfessionalIndex((prev) => (prev + 1) % projects.length);
+        break;
+    }
+  };
+
+  const prevProject = (category: ProjectCategory) => {
+    const projects = getProjectsByCategory(category);
+    switch(category) {
+      case 'personal':
+        setCurrentPersonalIndex((prev) => (prev - 1 + projects.length) % projects.length);
+        break;
+      case 'freelance':
+        setCurrentFreelanceIndex((prev) => (prev - 1 + projects.length) % projects.length);
+        break;
+      case 'professional':
+        setCurrentProfessionalIndex((prev) => (prev - 1 + projects.length) % projects.length);
+        break;
+    }
   };
 
   const nextTestimonial = () => {
@@ -269,32 +308,75 @@ const MinimalPortfolio = () => {
     }
   };
 
+  const getTypeIcon = (type: 'software' | 'roblox') => {
+    return type === 'software' ? <Code2 className="w-4 h-4" /> : <Play className="w-4 h-4" />;
+  };
+
   const getCategoryIcon = (category: ProjectCategory) => {
-    return category === 'software' ? <Code2 className="w-4 h-4" /> : <Play className="w-4 h-4" />;
+    switch(category) {
+      case 'personal':
+        return <User className="w-4 h-4" />;
+      case 'freelance':
+        return <Briefcase className="w-4 h-4" />;
+      case 'professional':
+        return <Building className="w-4 h-4" />;
+    }
   };
 
-  const getProjectsByCategory = (category: ProjectCategory) => {
-    return allProjects.filter(project => project.category === category);
-  };
+  const renderProjectCarousel = (category: ProjectCategory) => {
+    const projects = getProjectsByCategory(category);
+    if (projects.length === 0) return null;
 
-  const renderProjectCarousel = () => {
-    const currentProject = allProjects[currentProjectIndex];
+    let currentIndex;
+    switch(category) {
+      case 'personal':
+        currentIndex = currentPersonalIndex;
+        break;
+      case 'freelance':
+        currentIndex = currentFreelanceIndex;
+        break;
+      case 'professional':
+        currentIndex = currentProfessionalIndex;
+        break;
+    }
+
+    const currentProject = projects[currentIndex];
     
     return (
-      <div className="space-y-6">
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="text-amber-400">
-              {getCategoryIcon(currentProject.category)}
+      <div className="space-y-3">
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="text-amber-400">
+                {getTypeIcon(currentProject.type)}
+              </div>
+              <h3 className="text-white text-base">{currentProject.title}</h3>
+              <span className={`text-xs px-2 py-1 rounded ${getStatusColor(currentProject.status)}`}>
+                {currentProject.status.toLowerCase()}
+              </span>
             </div>
-            <h3 className="text-white text-lg">{currentProject.title}</h3>
-            <span className={`text-xs px-2 py-1 rounded ${getStatusColor(currentProject.status)}`}>
-              {currentProject.status.toLowerCase()}
-            </span>
+            <div className="flex items-center gap-3">
+              <p className="text-neutral-500 text-xs">{currentProject.date}</p>
+              <button
+                onClick={() => prevProject(category)}
+                className="text-neutral-600 hover:text-amber-400 transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <span className="text-neutral-600 text-xs">
+                {currentIndex + 1}/{projects.length}
+              </span>
+              <button
+                onClick={() => nextProject(category)}
+                className="text-neutral-600 hover:text-amber-400 transition-colors"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="h-20 overflow-hidden">
-            <p className="text-neutral-400 leading-relaxed">
+          <div className="h-12 overflow-hidden">
+            <p className="text-neutral-400 leading-relaxed text-xs">
               {currentProject.description}
             </p>
           </div>
@@ -310,7 +392,7 @@ const MinimalPortfolio = () => {
             )}
           </div>
 
-          <div className="flex gap-6 text-sm pt-2">
+          <div className="flex gap-4 text-sm pt-1">
             <button
               onClick={() => setSelectedProject(currentProject)}
               className="text-amber-400 hover:text-amber-300 transition-colors"
@@ -349,30 +431,6 @@ const MinimalPortfolio = () => {
             )}
           </div>
         </div>
-
-        <div className="flex items-center justify-between pt-6 border-t border-neutral-800">
-          <div className="text-left">
-            <p className="text-neutral-500 text-xs">{currentProject.date}</p>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <button
-              onClick={prevProject}
-              className="text-neutral-600 hover:text-amber-400 transition-colors"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <span className="text-neutral-600 text-xs">
-              {currentProjectIndex + 1}/{allProjects.length}
-            </span>
-            <button
-              onClick={nextProject}
-              className="text-neutral-600 hover:text-amber-400 transition-colors"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
       </div>
     );
   };
@@ -382,69 +440,152 @@ const MinimalPortfolio = () => {
   return (
     <div className="min-h-screen bg-neutral-900 text-neutral-300 font-mono">
       {/* Header */}
-      <header className="py-20">
-        <div className="max-w-2xl mx-auto text-center px-6">
-          <h1 className="text-2xl text-white mb-2">nathaniel merck</h1>
-          <p className="text-neutral-500 text-sm">software engineer</p>
+      <header className="py-8">
+        <div className="max-w-2xl mx-auto px-6">
+          <div className="flex items-start justify-between">
+            <div>
+              <h1 className="text-2xl text-white mb-2">nathaniel merck</h1>
+              <p className="text-neutral-500 text-sm">software engineer</p>
+            </div>
+            <div className="text-right space-y-1 text-xs text-neutral-600">
+              <p>professional for 5+ years</p>
+              <p><a href="mailto:nathanielmerck@yahoo.com" className="text-amber-400 hover:text-amber-300 transition-colors">nathanielmerck@yahoo.com</a></p>
+              <p>SC, USA </p>
+            </div>
+          </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="max-w-2xl mx-auto px-6">
-        {/* Projects */}
-        <section className="mb-20">
-          <h2 className="text-neutral-400 text-xs uppercase tracking-widest mb-8">work</h2>
-          {renderProjectCarousel()}
+        {/* Personal Projects */}
+        <section className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="text-neutral-500">
+              <User className="w-4 h-4" />
+            </div>
+            <h2 className="text-neutral-400 text-xs uppercase tracking-widest">personal projects</h2>
+          </div>
+          {renderProjectCarousel('personal')}
+        </section>
+
+        {/* Freelance Work */}
+        <section className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="text-neutral-500">
+              <Briefcase className="w-4 h-4" />
+            </div>
+            <h2 className="text-neutral-400 text-xs uppercase tracking-widest">freelance work</h2>
+          </div>
+          {renderProjectCarousel('freelance')}
+        </section>
+
+        {/* Professional Work */}
+        <section className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="text-neutral-500">
+              <Building className="w-4 h-4" />
+            </div>
+            <h2 className="text-neutral-400 text-xs uppercase tracking-widest">professional work</h2>
+          </div>
+          {professionalProjects.length > 0 ? (
+            renderProjectCarousel('professional')
+          ) : (
+            <div className="text-neutral-500 text-sm italic">
+              Professional projects coming soon...
+            </div>
+          )}
         </section>
 
         {/* Testimonials */}
-        <section className="mb-20">
-          <h2 className="text-neutral-400 text-xs uppercase tracking-widest mb-8">feedback</h2>
+        <section className="mb-8">
+          <h2 className="text-neutral-400 text-xs uppercase tracking-widest mb-4">feedback</h2>
           
-          <div className="space-y-6">
-            <div className="flex items-center gap-1 mb-4">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1">
               {renderStars(currentTestimonial.rating)}
             </div>
-            
-            <div className="h-32 overflow-hidden">
-              <p className="text-neutral-300 leading-relaxed">
-                "{currentTestimonial.content}"
-              </p>
-            </div>
-
-            <div className="flex items-center justify-between pt-4 border-t border-neutral-800">
-              <div>
-                <p className="text-white text-sm">{currentTestimonial.name}</p>
-                <p className="text-neutral-500 text-xs">
-                  {currentTestimonial.role}
-                  {currentTestimonial.company && ` • ${currentTestimonial.company}`}
-                </p>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={prevTestimonial}
-                  className="text-neutral-600 hover:text-amber-400 transition-colors"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <span className="text-neutral-600 text-xs">
-                  {currentTestimonialIndex + 1}/{testimonials.length}
-                </span>
-                <button
-                  onClick={nextTestimonial}
-                  className="text-neutral-600 hover:text-amber-400 transition-colors"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={prevTestimonial}
+                className="text-neutral-600 hover:text-amber-400 transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <span className="text-neutral-600 text-xs">
+                {currentTestimonialIndex + 1}/{testimonials.length}
+              </span>
+              <button
+                onClick={nextTestimonial}
+                className="text-neutral-600 hover:text-amber-400 transition-colors"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
+          
+          <div className="h-10 overflow-hidden">
+            <p className="text-neutral-300 leading-relaxed text-xs">
+              "{currentTestimonial.content}"
+            </p>
+          </div>
+
+          <div className="pt-1">
+            <p className="text-white text-sm">{currentTestimonial.name}</p>
+            <p className="text-neutral-500 text-xs">
+              {currentTestimonial.role}
+              {currentTestimonial.company && ` • ${currentTestimonial.company}`}
+            </p>
+          </div>
+        </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="pb-12 text-center">
+      <footer className="pb-8 text-center space-y-4">
+        <div className="flex items-center justify-center gap-6">
+          <a
+            href="https://github.com/nmerck1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-600 hover:text-amber-400 transition-colors"
+            title="GitHub"
+          >
+            <Github className="w-4 h-4" />
+          </a>
+          <a
+            href="https://linkedin.com/in/nathaniel-merck"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-600 hover:text-amber-400 transition-colors"
+            title="LinkedIn"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a
+            href="mailto:nathanielmerck@yahoo.com"
+            className="text-neutral-600 hover:text-amber-400 transition-colors"
+            title="Email"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </a>
+          <a
+            href="https://www.upwork.com/freelancers/nathanielm13"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-600 hover:text-amber-400 transition-colors"
+            title="Upwork"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.543-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3.012-2.439-5.463-5.439-5.463z"/>
+            </svg>
+          </a>
+        </div>
         <p className="text-neutral-700 text-xs">
           react • tailwind
         </p>
@@ -464,7 +605,7 @@ const MinimalPortfolio = () => {
             <div className="sticky top-0 bg-neutral-800/95 backdrop-blur p-6 flex items-center justify-between border-b border-neutral-800">
               <div className="flex items-center gap-3">
                 <div className="text-amber-400">
-                  {getCategoryIcon(selectedProject.category)}
+                  {getTypeIcon(selectedProject.type)}
                 </div>
                 <h2 className="text-lg text-white">{selectedProject.title}</h2>
               </div>
