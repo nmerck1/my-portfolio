@@ -40,6 +40,7 @@ interface Testimonial {
 }
 
 const MinimalPortfolio = () => {
+  const [activeTab, setActiveTab] = useState<ProjectCategory>('personal');
   const [currentPersonalIndex, setCurrentPersonalIndex] = useState(0);
   const [currentFreelanceIndex, setCurrentFreelanceIndex] = useState(0);
   const [currentProfessionalIndex, setCurrentProfessionalIndex] = useState(0);
@@ -381,14 +382,14 @@ const MinimalPortfolio = () => {
             </p>
           </div>
 
-          <div className="text-xs text-neutral-500 space-x-2">
-            {currentProject.technologies.slice(0, 4).map((tech, i) => (
+          <div className="text-xs text-neutral-500">
+            {currentProject.technologies.slice(0, 3).map((tech, i) => (
               <span key={tech}>
-                {tech}{i < Math.min(currentProject.technologies.length, 4) - 1 ? ' •' : ''}
+                {tech}{i < Math.min(currentProject.technologies.length, 3) - 1 ? ' • ' : ''}
               </span>
             ))}
-            {currentProject.technologies.length > 4 && (
-              <span> • +{currentProject.technologies.length - 4} more</span>
+            {currentProject.technologies.length > 3 && (
+              <span> • +{currentProject.technologies.length - 3}</span>
             )}
           </div>
 
@@ -458,42 +459,55 @@ const MinimalPortfolio = () => {
 
       {/* Main Content */}
       <main className="max-w-2xl mx-auto px-6">
-        {/* Personal Projects */}
-        <section className="mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="text-neutral-500">
+        {/* Work Tabs */}
+        <section className="mb-6">
+          <div className="flex items-center gap-6 mb-6 border-b border-neutral-800">
+            <button
+              onClick={() => setActiveTab('personal')}
+              className={`flex items-center gap-2 pb-3 text-sm transition-colors ${
+                activeTab === 'personal'
+                  ? 'text-amber-400 border-b-2 border-amber-400'
+                  : 'text-neutral-500 hover:text-neutral-300'
+              }`}
+            >
               <User className="w-4 h-4" />
-            </div>
-            <h2 className="text-neutral-400 text-xs uppercase tracking-widest">personal projects</h2>
-          </div>
-          {renderProjectCarousel('personal')}
-        </section>
-
-        {/* Freelance Work */}
-        <section className="mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="text-neutral-500">
+              personal
+            </button>
+            <button
+              onClick={() => setActiveTab('freelance')}
+              className={`flex items-center gap-2 pb-3 text-sm transition-colors ${
+                activeTab === 'freelance'
+                  ? 'text-amber-400 border-b-2 border-amber-400'
+                  : 'text-neutral-500 hover:text-neutral-300'
+              }`}
+            >
               <Briefcase className="w-4 h-4" />
-            </div>
-            <h2 className="text-neutral-400 text-xs uppercase tracking-widest">freelance work</h2>
-          </div>
-          {renderProjectCarousel('freelance')}
-        </section>
-
-        {/* Professional Work */}
-        <section className="mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="text-neutral-500">
+              freelance
+            </button>
+            <button
+              onClick={() => setActiveTab('professional')}
+              className={`flex items-center gap-2 pb-3 text-sm transition-colors ${
+                activeTab === 'professional'
+                  ? 'text-amber-400 border-b-2 border-amber-400'
+                  : 'text-neutral-500 hover:text-neutral-300'
+              }`}
+            >
               <Building className="w-4 h-4" />
-            </div>
-            <h2 className="text-neutral-400 text-xs uppercase tracking-widest">professional work</h2>
+              professional
+            </button>
           </div>
-          {professionalProjects.length > 0 ? (
-            renderProjectCarousel('professional')
-          ) : (
-            <div className="text-neutral-500 text-sm italic">
-              Professional projects coming soon...
-            </div>
+
+          {/* Active Tab Content */}
+          {activeTab === 'personal' && personalProjects.length > 0 && renderProjectCarousel('personal')}
+          {activeTab === 'freelance' && freelanceProjects.length > 0 && renderProjectCarousel('freelance')}
+          {activeTab === 'professional' && (
+            professionalProjects.length > 0 ? (
+              renderProjectCarousel('professional')
+            ) : (
+              <div className="text-neutral-500 text-sm italic text-center py-8">
+                Professional projects coming soon...
+              </div>
+            )
           )}
         </section>
 
