@@ -250,7 +250,7 @@ const MinimalPortfolio = () => {
       <Star
         key={i}
         className={`w-3 h-3 ${
-          i < rating ? 'text-cyan-400 fill-cyan-400' : 'text-slate-500'
+          i < rating ? 'text-amber-400 fill-amber-400' : 'text-neutral-600'
         }`}
       />
     ));
@@ -259,13 +259,13 @@ const MinimalPortfolio = () => {
   const getStatusColor = (status: ProjectStatus): string => {
     switch (status) {
       case 'In Progress':
-        return 'text-cyan-400 bg-cyan-400/10 border-cyan-400/30';
+        return 'text-amber-400 bg-amber-900/20';
       case 'Completed':
-        return 'text-emerald-400 bg-emerald-400/10 border-emerald-400/30';
+        return 'text-emerald-400 bg-emerald-900/20';
       case 'On Hold':
-        return 'text-slate-400 bg-slate-400/10 border-slate-400/30';
+        return 'text-neutral-400 bg-neutral-800/50';
       default:
-        return 'text-slate-400 bg-slate-400/10 border-slate-400/30';
+        return 'text-neutral-400 bg-neutral-800/50';
     }
   };
 
@@ -281,142 +281,96 @@ const MinimalPortfolio = () => {
     const currentProject = allProjects[currentProjectIndex];
     
     return (
-      <div className="bg-slate-800/40 border border-slate-700/50 rounded-lg p-8 backdrop-blur-sm min-h-[400px]">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 min-h-[336px]">
-          {/* Project Details */}
-          <div className="lg:col-span-2 flex flex-col min-h-[336px]">
-            <div className="flex items-center gap-3 mb-4 flex-shrink-0">
-              <div className="text-cyan-400">
-                {getCategoryIcon(currentProject.category)}
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-medium text-slate-100">{currentProject.title}</h3>
-                <p className="text-slate-400 text-sm">{currentProject.date}</p>
-              </div>
-              <span className={`text-xs px-2 py-1 rounded border ${getStatusColor(currentProject.status)} flex-shrink-0`}>
-                {currentProject.status}
-              </span>
+      <div className="space-y-6">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="text-amber-400">
+              {getCategoryIcon(currentProject.category)}
             </div>
-
-            {/* Description with fixed height */}
-            <div className="h-20 mb-6 flex-shrink-0 overflow-hidden">
-              <p className="text-slate-300 leading-relaxed text-base">
-                {currentProject.description}
-              </p>
-            </div>
-
-            {/* Technologies with fixed space */}
-            <div className="mb-6 flex-shrink-0">
-              <h4 className="text-slate-100 text-sm font-medium mb-3">Technologies Used</h4>
-              <div className="flex flex-wrap gap-2 h-16 overflow-hidden">
-                {currentProject.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-sm text-slate-300 bg-slate-700/50 border border-slate-600 px-3 py-1.5 rounded hover:border-cyan-400/50 hover:text-cyan-400 transition-colors h-fit"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Links fixed at bottom */}
-            <div className="flex gap-3 flex-wrap mt-auto">
-              <button
-                onClick={() => setSelectedProject(currentProject)}
-                className="bg-slate-700 hover:bg-slate-600 text-slate-100 px-4 py-2 rounded transition-colors flex items-center gap-2 font-medium text-sm"
-              >
-                <FileText className="w-4 h-4" />
-                View Details
-              </button>
-              {currentProject.links.github && (
-                <a
-                  href={currentProject.links.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-cyan-500 hover:bg-cyan-400 text-white px-4 py-2 rounded transition-colors flex items-center gap-2 font-medium text-sm"
-                >
-                  <Github className="w-4 h-4" />
-                  View Code
-                </a>
-              )}
-              {currentProject.links.live && (
-                <a
-                  href={currentProject.links.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-4 py-2 rounded transition-colors flex items-center gap-2 text-sm"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Live Demo
-                </a>
-              )}
-              {currentProject.links.roblox && (
-                <a
-                  href={currentProject.links.roblox}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-4 py-2 rounded transition-colors flex items-center gap-2 text-sm"
-                >
-                  <Play className="w-4 h-4" />
-                  Play Game
-                </a>
-              )}
-            </div>
+            <h3 className="text-white text-lg">{currentProject.title}</h3>
+            <span className={`text-xs px-2 py-1 rounded ${getStatusColor(currentProject.status)}`}>
+              {currentProject.status.toLowerCase()}
+            </span>
           </div>
 
-          {/* Navigation & Stats */}
-          <div className="space-y-6 flex flex-col justify-center min-h-[336px]">
-            {/* Project Navigation */}
-            <div className="text-center">
-              <p className="text-slate-400 text-sm mb-4">
-                Project {currentProjectIndex + 1} of {allProjects.length}
-              </p>
-              
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <button
-                  onClick={prevProject}
-                  className="text-slate-400 hover:text-cyan-400 transition-colors"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                
-                <div className="flex gap-1">
-                  {allProjects.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentProjectIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        index === currentProjectIndex ? 'bg-cyan-400' : 'bg-slate-500'
-                      }`}
-                    />
-                  ))}
-                </div>
-                
-                <button
-                  onClick={nextProject}
-                  className="text-slate-400 hover:text-cyan-400 transition-colors"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
+          <div className="h-20 overflow-hidden">
+            <p className="text-neutral-400 leading-relaxed">
+              {currentProject.description}
+            </p>
+          </div>
 
-            {/* Category Stats */}
-            <div className="space-y-4">
-              <div className="text-center">
-                <p className="text-lg font-light text-slate-100 mb-1">{allProjects.length}</p>
-                <p className="text-slate-400 text-xs uppercase tracking-wider">Total Projects</p>
-              </div>
-              <div className="text-center">
-                <p className="text-lg font-light text-slate-100 mb-1">{getProjectsByCategory('software').length}</p>
-                <p className="text-slate-400 text-xs uppercase tracking-wider">Software Apps</p>
-              </div>
-              <div className="text-center">
-                <p className="text-lg font-light text-slate-100 mb-1">{getProjectsByCategory('roblox').length}</p>
-                <p className="text-slate-400 text-xs uppercase tracking-wider">Games Created</p>
-              </div>
-            </div>
+          <div className="text-xs text-neutral-500 space-x-2">
+            {currentProject.technologies.slice(0, 4).map((tech, i) => (
+              <span key={tech}>
+                {tech}{i < Math.min(currentProject.technologies.length, 4) - 1 ? ' •' : ''}
+              </span>
+            ))}
+            {currentProject.technologies.length > 4 && (
+              <span> • +{currentProject.technologies.length - 4} more</span>
+            )}
+          </div>
+
+          <div className="flex gap-6 text-sm pt-2">
+            <button
+              onClick={() => setSelectedProject(currentProject)}
+              className="text-amber-400 hover:text-amber-300 transition-colors"
+            >
+              details
+            </button>
+            {currentProject.links.github && (
+              <a
+                href={currentProject.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-neutral-400 hover:text-white transition-colors"
+              >
+                code
+              </a>
+            )}
+            {currentProject.links.live && (
+              <a
+                href={currentProject.links.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-neutral-400 hover:text-white transition-colors"
+              >
+                live
+              </a>
+            )}
+            {currentProject.links.roblox && (
+              <a
+                href={currentProject.links.roblox}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-neutral-400 hover:text-white transition-colors"
+              >
+                play
+              </a>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between pt-6 border-t border-neutral-800">
+          <div className="text-left">
+            <p className="text-neutral-500 text-xs">{currentProject.date}</p>
+          </div>
+          
+          <div className="flex items-center gap-3">
+            <button
+              onClick={prevProject}
+              className="text-neutral-600 hover:text-amber-400 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <span className="text-neutral-600 text-xs">
+              {currentProjectIndex + 1}/{allProjects.length}
+            </span>
+            <button
+              onClick={nextProject}
+              className="text-neutral-600 hover:text-amber-400 transition-colors"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </div>
@@ -426,277 +380,166 @@ const MinimalPortfolio = () => {
   const currentTestimonial = testimonials[currentTestimonialIndex];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-300 font-mono">
+    <div className="min-h-screen bg-neutral-900 text-neutral-300 font-mono">
       {/* Header */}
-      <header className="border-b border-slate-700/50 bg-slate-800/30 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-light text-slate-100 mb-2">Nathaniel Merck</h1>
-            <p className="text-cyan-400 text-lg mb-6">Full Stack Software Engineer | Game Developer</p>
-          </div>
+      <header className="py-20">
+        <div className="max-w-2xl mx-auto text-center px-6">
+          <h1 className="text-2xl text-white mb-2">nathaniel merck</h1>
+          <p className="text-neutral-500 text-sm">software engineer</p>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* Projects Carousel */}
-        <div className="mb-12">
-          <div className="mb-6">
-            <h2 className="text-xl font-light text-slate-100 mb-2">Featured Projects</h2>
-            <p className="text-slate-400 text-sm">Browse through my portfolio</p>
-          </div>
-
+      <main className="max-w-2xl mx-auto px-6">
+        {/* Projects */}
+        <section className="mb-20">
+          <h2 className="text-neutral-400 text-xs uppercase tracking-widest mb-8">work</h2>
           {renderProjectCarousel()}
-        </div>
+        </section>
 
-        {/* Compact Testimonials Section */}
-        <div id="testimonials-section" className="border-t border-slate-700/50 pt-8">
-          <div className="mb-6">
-            <h2 className="text-xl font-light text-slate-100 mb-2">Client Reviews</h2>
-            <p className="text-slate-400 text-sm">Feedback from satisfied clients</p>
-          </div>
+        {/* Testimonials */}
+        <section className="mb-20">
+          <h2 className="text-neutral-400 text-xs uppercase tracking-widest mb-8">feedback</h2>
+          
+          <div className="space-y-6">
+            <div className="flex items-center gap-1 mb-4">
+              {renderStars(currentTestimonial.rating)}
+            </div>
+            
+            <div className="h-32 overflow-hidden">
+              <p className="text-neutral-300 leading-relaxed">
+                "{currentTestimonial.content}"
+              </p>
+            </div>
 
-          {/* Compact Testimonial Display */}
-          <div className="bg-slate-800/40 border border-slate-700/50 rounded-lg p-6 backdrop-blur-sm h-[240px]">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
-              {/* Current Testimonial */}
-              <div className="lg:col-span-2 flex flex-col">
-                <div className="flex items-center gap-2 mb-3">
-                  {renderStars(currentTestimonial.rating)}
-                  <span className="text-xs text-slate-400">
-                    {currentTestimonial.rating}/5 stars
-                  </span>
-                </div>
-                
-                <blockquote className="text-slate-300 leading-relaxed mb-4 text-sm flex-1 overflow-hidden line-clamp-6">
-                  "{currentTestimonial.content}"
-                </blockquote>
-
-                <div className="flex items-center justify-between mt-auto">
-                  <div>
-                    <p className="text-slate-100 font-medium text-sm">{currentTestimonial.name}</p>
-                    <p className="text-slate-400 text-xs">
-                      {currentTestimonial.role}
-                      {currentTestimonial.company && ` at ${currentTestimonial.company}`}
-                    </p>
-                    <p className="text-cyan-400 text-xs">{currentTestimonial.project}</p>
-                  </div>
-                  
-                  {/* Navigation */}
-                  {testimonials.length > 1 && (
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={prevTestimonial}
-                        className="text-slate-400 hover:text-cyan-400 transition-colors"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <div className="flex gap-1">
-                        {testimonials.map((_, index) => (
-                          <button
-                            key={index}
-                            onClick={() => setCurrentTestimonialIndex(index)}
-                            className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                              index === currentTestimonialIndex ? 'bg-cyan-400' : 'bg-slate-500'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      <button
-                        onClick={nextTestimonial}
-                        className="text-slate-400 hover:text-cyan-400 transition-colors"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  )}
-                </div>
+            <div className="flex items-center justify-between pt-4 border-t border-neutral-800">
+              <div>
+                <p className="text-white text-sm">{currentTestimonial.name}</p>
+                <p className="text-neutral-500 text-xs">
+                  {currentTestimonial.role}
+                  {currentTestimonial.company && ` • ${currentTestimonial.company}`}
+                </p>
               </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 items-center">
-                <div className="text-center">
-                  <p className="text-lg font-light text-slate-100 mb-1">{testimonials.length}+</p>
-                  <p className="text-slate-400 text-xs uppercase tracking-wider">Happy Clients</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-lg font-light text-slate-100 mb-1">
-                    {(testimonials.reduce((acc, t) => acc + t.rating, 0) / testimonials.length).toFixed(1)}/5
-                  </p>
-                  <p className="text-slate-400 text-xs uppercase tracking-wider">Average Rating</p>
-                </div>
+              
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={prevTestimonial}
+                  className="text-neutral-600 hover:text-amber-400 transition-colors"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <span className="text-neutral-600 text-xs">
+                  {currentTestimonialIndex + 1}/{testimonials.length}
+                </span>
+                <button
+                  onClick={nextTestimonial}
+                  className="text-neutral-600 hover:text-amber-400 transition-colors"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-12 pt-6 border-t border-slate-700/50 text-center">
-          <p className="text-slate-500 text-xs">
-            Built with React, TypeScript & Tailwind CSS
-          </p>
-        </div>
+        </section>
       </main>
+
+      {/* Footer */}
+      <footer className="pb-12 text-center">
+        <p className="text-neutral-700 text-xs">
+          react • tailwind
+        </p>
+      </footer>
 
       {/* Project Detail Modal */}
       {selectedProject && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setSelectedProject(null);
             }
           }}
         >
-          <div className="bg-slate-800/90 backdrop-blur-sm border border-slate-700/50 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            {/* Modal Header */}
-            <div className="sticky top-0 bg-slate-800/95 backdrop-blur border-b border-slate-700/50 p-6 flex items-center justify-between">
+          <div className="bg-neutral-800/95 backdrop-blur-sm rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-neutral-800/95 backdrop-blur p-6 flex items-center justify-between border-b border-neutral-800">
               <div className="flex items-center gap-3">
-                <div className="text-cyan-400">
+                <div className="text-amber-400">
                   {getCategoryIcon(selectedProject.category)}
                 </div>
-                <div>
-                  <h2 className="text-2xl font-medium text-slate-100">{selectedProject.title}</h2>
-                  <p className="text-slate-400 text-sm">{selectedProject.date}</p>
-                </div>
-                <span className={`text-xs px-2 py-1 rounded border ${getStatusColor(selectedProject.status)} ml-auto`}>
-                  {selectedProject.status}
-                </span>
+                <h2 className="text-lg text-white">{selectedProject.title}</h2>
               </div>
               <button
                 onClick={() => setSelectedProject(null)}
-                className="text-slate-400 hover:text-slate-100 transition-colors"
+                className="text-neutral-500 hover:text-white transition-colors"
               >
-                <X className="w-6 h-6" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-6 space-y-8">
-              {/* Screenshots */}
-              {selectedProject.screenshots && selectedProject.screenshots.length > 0 && (
-                <section>
-                  <h3 className="text-lg font-medium text-slate-100 mb-4">Screenshots</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {selectedProject.screenshots.map((screenshot, index) => (
-                      <img
-                        key={index}
-                        src={screenshot}
-                        alt={`${selectedProject.title} screenshot ${index + 1}`}
-                        className="rounded-lg border border-slate-700/50 w-full h-48 object-cover bg-slate-700/30"
-                      />
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Full Description */}
-              <section>
-                <h3 className="text-lg font-medium text-slate-100 mb-4">Project Overview</h3>
-                <p className="text-slate-300 leading-relaxed">
+            <div className="p-6 space-y-6">
+              <div>
+                <h3 className="text-white text-sm mb-3">overview</h3>
+                <p className="text-neutral-400 leading-relaxed text-sm">
                   {selectedProject.fullDescription || selectedProject.description}
                 </p>
-              </section>
+              </div>
 
-              {/* Key Features */}
               {selectedProject.keyFeatures && selectedProject.keyFeatures.length > 0 && (
-                <section>
-                  <h3 className="text-lg font-medium text-slate-100 mb-4">Key Features</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <h3 className="text-white text-sm mb-3">features</h3>
+                  <div className="space-y-1 text-sm">
                     {selectedProject.keyFeatures.map((feature, index) => (
-                      <div key={index} className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 flex-shrink-0"></div>
-                        <p className="text-slate-300 text-sm">{feature}</p>
+                      <div key={index} className="text-neutral-400">
+                        • {feature}
                       </div>
                     ))}
                   </div>
-                </section>
+                </div>
               )}
 
-              {/* Technical Challenges */}
-              {selectedProject.challenges && selectedProject.challenges.length > 0 && (
-                <section>
-                  <h3 className="text-lg font-medium text-slate-100 mb-4">Technical Challenges</h3>
-                  <div className="space-y-3">
-                    {selectedProject.challenges.map((challenge, index) => (
-                      <div key={index} className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 flex-shrink-0"></div>
-                        <p className="text-slate-300 text-sm">{challenge}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Achievements */}
-              {selectedProject.achievements && selectedProject.achievements.length > 0 && (
-                <section>
-                  <h3 className="text-lg font-medium text-slate-100 mb-4">Key Achievements</h3>
-                  <div className="space-y-3">
-                    {selectedProject.achievements.map((achievement, index) => (
-                      <div key={index} className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 flex-shrink-0"></div>
-                        <p className="text-slate-300 text-sm">{achievement}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Technologies */}
-              <section>
-                <h3 className="text-lg font-medium text-slate-100 mb-4">Technologies & Tools</h3>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-sm text-slate-300 bg-slate-700/50 border border-slate-600 px-3 py-1.5 rounded"
-                    >
-                      {tech}
+              <div>
+                <h3 className="text-white text-sm mb-3">tech</h3>
+                <div className="text-neutral-400 text-sm">
+                  {selectedProject.technologies.map((tech, i) => (
+                    <span key={tech}>
+                      {tech}{i < selectedProject.technologies.length - 1 ? ' • ' : ''}
                     </span>
                   ))}
                 </div>
-              </section>
+              </div>
 
-              {/* Project Links */}
-              <section>
-                <h3 className="text-lg font-medium text-slate-100 mb-4">Project Links</h3>
-                <div className="flex gap-4 flex-wrap">
-                  {selectedProject.links.github && (
-                    <a
-                      href={selectedProject.links.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-cyan-500 hover:bg-cyan-400 text-white px-4 py-2 rounded transition-colors flex items-center gap-2 font-medium"
-                    >
-                      <Github className="w-4 h-4" />
-                      View Code
-                    </a>
-                  )}
-                  {selectedProject.links.live && (
-                    <a
-                      href={selectedProject.links.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-4 py-2 rounded transition-colors flex items-center gap-2"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Live Demo
-                    </a>
-                  )}
-                  {selectedProject.links.roblox && (
-                    <a
-                      href={selectedProject.links.roblox}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-4 py-2 rounded transition-colors flex items-center gap-2"
-                    >
-                      <Play className="w-4 h-4" />
-                      Play Game
-                    </a>
-                  )}
-                </div>
-              </section>
+              <div className="flex gap-6 text-sm pt-2">
+                {selectedProject.links.github && (
+                  <a
+                    href={selectedProject.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-amber-400 hover:text-amber-300 transition-colors"
+                  >
+                    view code
+                  </a>
+                )}
+                {selectedProject.links.live && (
+                  <a
+                    href={selectedProject.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-neutral-400 hover:text-white transition-colors"
+                  >
+                    live demo
+                  </a>
+                )}
+                {selectedProject.links.roblox && (
+                  <a
+                    href={selectedProject.links.roblox}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-neutral-400 hover:text-white transition-colors"
+                  >
+                    play game
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
