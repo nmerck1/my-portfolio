@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ExternalLink, Github, Code2, Play, FileText, ChevronLeft, ChevronRight, Star, X, User, Briefcase, Building } from 'lucide-react';
+import { Github, Code2, Play, ChevronLeft, ChevronRight, Star, X, User, Briefcase, Building } from 'lucide-react';
 
 type ProjectStatus = 'In Progress' | 'Completed' | 'On Hold';
 type ProjectCategory = 'personal' | 'freelance' | 'professional';
@@ -311,10 +311,6 @@ const MinimalPortfolio = () => {
   const freelanceProjects = getProjectsByCategory('freelance');
   const professionalProjects = getProjectsByCategory('professional');
 
-  const personalTestimonials = getTestimonialsByCategory('personal');
-  const freelanceTestimonials = getTestimonialsByCategory('freelance');
-  const professionalTestimonials = getTestimonialsByCategory('professional');
-
   const nextProject = (category: ProjectCategory) => {
     const projects = getProjectsByCategory(category);
     switch(category) {
@@ -401,17 +397,6 @@ const MinimalPortfolio = () => {
 
   const getTypeIcon = (type: 'software' | 'roblox') => {
     return type === 'software' ? <Code2 className="w-4 h-4" /> : <Play className="w-4 h-4" />;
-  };
-
-  const getCategoryIcon = (category: ProjectCategory) => {
-    switch(category) {
-      case 'personal':
-        return <User className="w-4 h-4" />;
-      case 'freelance':
-        return <Briefcase className="w-4 h-4" />;
-      case 'professional':
-        return <Building className="w-4 h-4" />;
-    }
   };
 
   const renderProjectCarousel = (category: ProjectCategory) => {
