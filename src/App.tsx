@@ -37,6 +37,7 @@ interface Testimonial {
   project: string;
   date: string;
   avatar?: string;
+  category: ProjectCategory;
 }
 
 const MinimalPortfolio = () => {
@@ -44,11 +45,14 @@ const MinimalPortfolio = () => {
   const [currentPersonalIndex, setCurrentPersonalIndex] = useState(0);
   const [currentFreelanceIndex, setCurrentFreelanceIndex] = useState(0);
   const [currentProfessionalIndex, setCurrentProfessionalIndex] = useState(0);
-  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+  const [currentPersonalTestimonialIndex, setCurrentPersonalTestimonialIndex] = useState(0);
+  const [currentFreelanceTestimonialIndex, setCurrentFreelanceTestimonialIndex] = useState(0);
+  const [currentProfessionalTestimonialIndex, setCurrentProfessionalTestimonialIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  // Sample testimonials
+  // Categorized testimonials
   const testimonials: Testimonial[] = [
+    // Freelance testimonials
     {
       id: 1,
       name: "Sean Herman",
@@ -58,7 +62,8 @@ const MinimalPortfolio = () => {
       rating: 5,
       project: "Kinzoo Enchanted Trail - Roblox Game",
       date: "Oct 2024 - Feb 2025",
-      avatar: "/api/placeholder/60/60"
+      avatar: "/api/placeholder/60/60",
+      category: "freelance"
     },
     {
       id: 2,
@@ -68,7 +73,8 @@ const MinimalPortfolio = () => {
       rating: 5,
       project: "Whispering Pines - Roblox Game",
       date: "Jan 2024 - Present",
-      avatar: "/api/placeholder/60/60"
+      avatar: "/api/placeholder/60/60",
+      category: "freelance"
     },
     {
       id: 3,
@@ -79,7 +85,8 @@ const MinimalPortfolio = () => {
       rating: 5,
       project: "Laser Tag Hero - Roblox Game",
       date: "Aug 2024 - Jun 2025",
-      avatar: "/api/placeholder/60/60"
+      avatar: "/api/placeholder/60/60",
+      category: "freelance"
     },
     {
       id: 4,
@@ -90,8 +97,34 @@ const MinimalPortfolio = () => {
       rating: 5,
       project: "Danger Spring - Roblox Game",
       date: "Jan 2025 - Mar 2025",
-      avatar: "/api/placeholder/60/60"
-    }
+      avatar: "/api/placeholder/60/60",
+      category: "freelance"
+    },
+    // Personal testimonials (placeholders)
+    {
+      id: 5,
+      name: "Marie Whelan",
+      role: "Friend & Beta Tester",
+      content: "The LMS app has helped me understand my spending better and be able to set clear budgets.",
+      rating: 5,
+      project: "LMS App",
+      date: "Dec 2021",
+      avatar: "/api/placeholder/60/60",
+      category: "personal"
+    },
+    // Professional testimonials (placeholders)
+    {
+      id: 7,
+      name: "Michael Gardner",
+      role: "Principal Software Engineer",
+      company: "OnGen",
+      content: "Nathaniel is a great software engineer. He thinks outside the box when it counts and gets important tasks done in a timely manner. I can count on him to solve tough problems. I would recommend Nathaniel to any team he is a great resource.",
+      rating: 5,
+      project: "LIS, MyHealthPro, Outreach Portal",
+      date: "Jan 2023",
+      avatar: "/api/placeholder/60/60",
+      category: "professional"
+    },
   ];
 
   // All projects organized by category
@@ -134,9 +167,9 @@ const MinimalPortfolio = () => {
     },
     {
       id: 2,
-      title: "Life Management Web App",
+      title: "LMS App",
       description: "Full-stack personal finance tracker with budgeting and reporting.",
-      fullDescription: "A comprehensive personal finance management system built to help individuals track expenses, set budgets, and monitor their financial goals. Features secure user authentication, transaction categorization, and detailed reporting capabilities.",
+      fullDescription: "The Life Management System (LMS) is a comprehensive personal finance management system built to help individuals track expenses, set budgets, and monitor their financial goals. Features secure user authentication, transaction categorization, and detailed reporting capabilities.",
       date: "December 2021",
       dateISO: "2021-12-01",
       status: "Completed",
@@ -233,8 +266,35 @@ const MinimalPortfolio = () => {
         "Progressive difficulty parkour challenges",
         "Interactive environmental puzzles",
         "Hidden collectible system",
-        "In-game shop with virtual rewards",
-        "Child-safe multiplayer interactions"
+        "In-game shop with virtual rewards"
+      ]
+    },
+    // Professional Projects
+    {
+      id: 5,
+      title: "MyHealthPro",
+      description: "A web app for receiving COVID test kit results.",
+      fullDescription: "A web app for registering a test kit after purchase. Users can get their results within two days after sending in their test kit.",
+      date: "Feb 2022",
+      dateISO: "2022-02-01",
+      status: "Completed",
+      category: "professional",
+      type: "software",
+      technologies: ["C#", "Visual Studio", ".NET 6", "APIs", "MySQL"],
+      links: {
+        // roblox: "https://www.roblox.com/games/136071239388244/Kinzoo-Enchanted-Trail"
+      },
+      image: "/api/placeholder/400/200",
+      screenshots: ["/api/placeholder/800/400", "/api/placeholder/800/400", "/api/placeholder/800/400"],
+      challenges: [
+        "Created user-friendly forms and front-end",
+        "Getting the API responses to be quick"
+      ],
+      achievements: [
+        "Created user-friendly forms and front-end",
+      ],
+      keyFeatures: [
+        "Login, Register, Actions, View Results, etc."
       ]
     }
   ];
@@ -243,9 +303,17 @@ const MinimalPortfolio = () => {
     return allProjects.filter(project => project.category === category);
   };
 
+  const getTestimonialsByCategory = (category: ProjectCategory) => {
+    return testimonials.filter(testimonial => testimonial.category === category);
+  };
+
   const personalProjects = getProjectsByCategory('personal');
   const freelanceProjects = getProjectsByCategory('freelance');
   const professionalProjects = getProjectsByCategory('professional');
+
+  const personalTestimonials = getTestimonialsByCategory('personal');
+  const freelanceTestimonials = getTestimonialsByCategory('freelance');
+  const professionalTestimonials = getTestimonialsByCategory('professional');
 
   const nextProject = (category: ProjectCategory) => {
     const projects = getProjectsByCategory(category);
@@ -277,12 +345,34 @@ const MinimalPortfolio = () => {
     }
   };
 
-  const nextTestimonial = () => {
-    setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+  const nextTestimonial = (category: ProjectCategory) => {
+    const testimonials = getTestimonialsByCategory(category);
+    switch(category) {
+      case 'personal':
+        setCurrentPersonalTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+        break;
+      case 'freelance':
+        setCurrentFreelanceTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+        break;
+      case 'professional':
+        setCurrentProfessionalTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+        break;
+    }
   };
 
-  const prevTestimonial = () => {
-    setCurrentTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const prevTestimonial = (category: ProjectCategory) => {
+    const testimonials = getTestimonialsByCategory(category);
+    switch(category) {
+      case 'personal':
+        setCurrentPersonalTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+        break;
+      case 'freelance':
+        setCurrentFreelanceTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+        break;
+      case 'professional':
+        setCurrentProfessionalTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+        break;
+    }
   };
 
   const renderStars = (rating: number) => {
@@ -436,7 +526,72 @@ const MinimalPortfolio = () => {
     );
   };
 
-  const currentTestimonial = testimonials[currentTestimonialIndex];
+  const renderTestimonialCarousel = (category: ProjectCategory) => {
+    const categoryTestimonials = getTestimonialsByCategory(category);
+    if (categoryTestimonials.length === 0) {
+      return (
+        <div className="text-neutral-500 text-sm italic text-center py-4">
+          No testimonials yet for {category} projects...
+        </div>
+      );
+    }
+
+    let currentIndex;
+    switch(category) {
+      case 'personal':
+        currentIndex = currentPersonalTestimonialIndex;
+        break;
+      case 'freelance':
+        currentIndex = currentFreelanceTestimonialIndex;
+        break;
+      case 'professional':
+        currentIndex = currentProfessionalTestimonialIndex;
+        break;
+    }
+
+    const currentTestimonial = categoryTestimonials[currentIndex];
+
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            {renderStars(currentTestimonial.rating)}
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => prevTestimonial(category)}
+              className="text-neutral-600 hover:text-amber-400 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <span className="text-neutral-600 text-xs">
+              {currentIndex + 1}/{categoryTestimonials.length}
+            </span>
+            <button
+              onClick={() => nextTestimonial(category)}
+              className="text-neutral-600 hover:text-amber-400 transition-colors"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+        
+        <div className="h-10 overflow-hidden">
+          <p className="text-neutral-300 leading-relaxed text-xs">
+            "{currentTestimonial.content}"
+          </p>
+        </div>
+
+        <div className="pt-1">
+          <p className="text-white text-sm">{currentTestimonial.name}</p>
+          <p className="text-neutral-500 text-xs">
+            {currentTestimonial.role}
+            {currentTestimonial.company && ` • ${currentTestimonial.company}`}
+          </p>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-neutral-900 text-neutral-300 font-mono">
@@ -450,7 +605,7 @@ const MinimalPortfolio = () => {
             </div>
             <div className="text-right space-y-1 text-xs text-neutral-600">
               <p>professional for 5+ years</p>
-              <p><a href="mailto:nathanielmerck@yahoo.com" className="text-amber-400 hover:text-amber-300 transition-colors">nathanielmerck@yahoo.com</a></p>
+              <p>nathanielmerck at yahoo.com</p>
               <p>SC, USA </p>
             </div>
           </div>
@@ -511,48 +666,12 @@ const MinimalPortfolio = () => {
           )}
         </section>
 
-        {/* Testimonials */}
+        {/* Category-based Testimonials */}
         <section className="mb-8">
-          <h2 className="text-neutral-400 text-xs uppercase tracking-widest mb-4">feedback</h2>
-          
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1">
-              {renderStars(currentTestimonial.rating)}
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={prevTestimonial}
-                className="text-neutral-600 hover:text-amber-400 transition-colors"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <span className="text-neutral-600 text-xs">
-                {currentTestimonialIndex + 1}/{testimonials.length}
-              </span>
-              <button
-                onClick={nextTestimonial}
-                className="text-neutral-600 hover:text-amber-400 transition-colors"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-          
-          <div className="h-10 overflow-hidden">
-            <p className="text-neutral-300 leading-relaxed text-xs">
-              "{currentTestimonial.content}"
-            </p>
-          </div>
-
-          <div className="pt-1">
-            <p className="text-white text-sm">{currentTestimonial.name}</p>
-            <p className="text-neutral-500 text-xs">
-              {currentTestimonial.role}
-              {currentTestimonial.company && ` • ${currentTestimonial.company}`}
-            </p>
-          </div>
-        </div>
+          <h2 className="text-neutral-400 text-xs uppercase tracking-widest mb-4">
+            {activeTab} feedback
+          </h2>
+          {renderTestimonialCarousel(activeTab)}
         </section>
       </main>
 
@@ -569,7 +688,7 @@ const MinimalPortfolio = () => {
             <Github className="w-4 h-4" />
           </a>
           <a
-            href="https://linkedin.com/in/nathaniel-merck"
+            href="https://www.linkedin.com/in/nathaniel-merck-8145b5ab/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-neutral-600 hover:text-amber-400 transition-colors"
@@ -579,17 +698,9 @@ const MinimalPortfolio = () => {
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
           </a>
+          
           <a
-            href="mailto:nathanielmerck@yahoo.com"
-            className="text-neutral-600 hover:text-amber-400 transition-colors"
-            title="Email"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </a>
-          <a
-            href="https://www.upwork.com/freelancers/nathanielm13"
+            href="https://www.upwork.com/freelancers/~0160f990e9ef01cff0"
             target="_blank"
             rel="noopener noreferrer"
             className="text-neutral-600 hover:text-amber-400 transition-colors"
