@@ -1,13 +1,43 @@
 import { useState } from 'react';
 import { Github, Code2, Play, ChevronLeft, ChevronRight, Star, X, User, Briefcase, Building } from 'lucide-react';
 
-const MinimalPortfolio = () => {
-  const [activeTab, setActiveTab] = useState('personal');
-  const [projectIndices, setProjectIndices] = useState({ personal: 0, freelance: 0, professional: 0 });
-  const [testimonialIndices, setTestimonialIndices] = useState({ personal: 0, freelance: 0, professional: 0 });
-  const [selectedProject, setSelectedProject] = useState(null);
+interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  company?: string;
+  content: string;
+  rating: number;
+  project: string;
+  date: string;
+  category: "personal" | "freelance" | "professional";
+}
 
-  const testimonials = [
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  fullDescription: string;
+  date: string;
+  status: "In Progress" | "Completed" | "On Hold";
+  category: "personal" | "freelance" | "professional";
+  type: "software" | "roblox";
+  technologies: string[];
+  links: {
+    github?: string;
+    live?: string;
+    roblox?: string;
+  };
+  keyFeatures?: string[];
+}
+
+const MinimalPortfolio = () => {
+  const [activeTab, setActiveTab] = useState<'personal' | 'freelance' | 'professional'>('personal');
+  const [projectIndices, setProjectIndices] = useState<{ personal: number; freelance: number; professional: number }>({ personal: 0, freelance: 0, professional: 0 });
+  const [testimonialIndices, setTestimonialIndices] = useState<{ personal: number; freelance: number; professional: number }>({ personal: 0, freelance: 0, professional: 0 });
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const testimonials: Testimonial[] = [
     {
       id: 1,
       name: "Sean Herman",
@@ -74,7 +104,7 @@ const MinimalPortfolio = () => {
     }
   ];
 
-  const allProjects = [
+  const allProjects: Project[] = [
     {
       id: 1,
       title: "Pi-Plant App",
@@ -176,15 +206,15 @@ const MinimalPortfolio = () => {
     }
   ];
 
-  const getProjectsByCategory = (category) => {
+  const getProjectsByCategory = (category: "personal" | "freelance" | "professional") => {
     return allProjects.filter(project => project.category === category);
   };
 
-  const getTestimonialsByCategory = (category) => {
+  const getTestimonialsByCategory = (category: "personal" | "freelance" | "professional") => {
     return testimonials.filter(testimonial => testimonial.category === category);
   };
 
-  const nextProject = (category) => {
+  const nextProject = (category: "personal" | "freelance" | "professional") => {
     const projects = getProjectsByCategory(category);
     if (projects.length > 0) {
       setProjectIndices(prev => ({
@@ -194,7 +224,7 @@ const MinimalPortfolio = () => {
     }
   };
 
-  const prevProject = (category) => {
+  const prevProject = (category: "personal" | "freelance" | "professional") => {
     const projects = getProjectsByCategory(category);
     if (projects.length > 0) {
       setProjectIndices(prev => ({
@@ -204,7 +234,7 @@ const MinimalPortfolio = () => {
     }
   };
 
-  const nextTestimonial = (category) => {
+  const nextTestimonial = (category: "personal" | "freelance" | "professional") => {
     const testimonials = getTestimonialsByCategory(category);
     if (testimonials.length > 0) {
       setTestimonialIndices(prev => ({
@@ -214,7 +244,7 @@ const MinimalPortfolio = () => {
     }
   };
 
-  const prevTestimonial = (category) => {
+  const prevTestimonial = (category: "personal" | "freelance" | "professional") => {
     const testimonials = getTestimonialsByCategory(category);
     if (testimonials.length > 0) {
       setTestimonialIndices(prev => ({
@@ -224,7 +254,7 @@ const MinimalPortfolio = () => {
     }
   };
 
-  const renderStars = (rating) => {
+  const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
@@ -235,7 +265,7 @@ const MinimalPortfolio = () => {
     ));
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: "In Progress" | "Completed" | "On Hold") => {
     switch (status) {
       case 'In Progress':
         return 'text-amber-400 bg-amber-900/20';
@@ -248,11 +278,11 @@ const MinimalPortfolio = () => {
     }
   };
 
-  const getTypeIcon = (type) => {
+  const getTypeIcon = (type: "software" | "roblox") => {
     return type === 'software' ? <Code2 className="w-4 h-4" /> : <Play className="w-4 h-4" />;
   };
 
-  const renderProjectCarousel = (category) => {
+  const renderProjectCarousel = (category: "personal" | "freelance" | "professional") => {
     const projects = getProjectsByCategory(category);
     if (projects.length === 0) {
       return (
@@ -362,7 +392,7 @@ const MinimalPortfolio = () => {
     );
   };
 
-  const renderTestimonialCarousel = (category) => {
+  const renderTestimonialCarousel = (category: "personal" | "freelance" | "professional") => {
     const categoryTestimonials = getTestimonialsByCategory(category);
     if (categoryTestimonials.length === 0) {
       return (
@@ -440,36 +470,36 @@ const MinimalPortfolio = () => {
           <div className="flex items-center gap-4 sm:gap-6 mb-6 border-b border-neutral-800 overflow-x-auto pb-0">
             <button
               onClick={() => setActiveTab('personal')}
-              className={`flex items-center gap-2 pb-3 text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
+              className={`flex flex-col items-center gap-1 pb-3 text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
                 activeTab === 'personal'
                   ? 'text-amber-400 border-b-2 border-amber-400'
                   : 'text-neutral-500 hover:text-neutral-300'
               }`}
             >
               <User className="w-4 h-4" />
-              personal
+              <span className="text-xs sm:text-sm">personal</span>
             </button>
             <button
               onClick={() => setActiveTab('freelance')}
-              className={`flex items-center gap-2 pb-3 text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
+              className={`flex flex-col items-center gap-1 pb-3 text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
                 activeTab === 'freelance'
                   ? 'text-amber-400 border-b-2 border-amber-400'
                   : 'text-neutral-500 hover:text-neutral-300'
               }`}
             >
               <Briefcase className="w-4 h-4" />
-              freelance
+              <span className="text-xs sm:text-sm">freelance</span>
             </button>
             <button
               onClick={() => setActiveTab('professional')}
-              className={`flex items-center gap-2 pb-3 text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
+              className={`flex flex-col items-center gap-1 pb-3 text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
                 activeTab === 'professional'
                   ? 'text-amber-400 border-b-2 border-amber-400'
                   : 'text-neutral-500 hover:text-neutral-300'
               }`}
             >
               <Building className="w-4 h-4" />
-              professional
+              <span className="text-xs sm:text-sm">professional</span>
             </button>
           </div>
 
