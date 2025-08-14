@@ -3,22 +3,20 @@ import { Github, Code2, Play, ChevronLeft, ChevronRight, Star, X, User, Briefcas
 
 const MinimalPortfolio = () => {
   const [activeTab, setActiveTab] = useState('personal');
-  const [currentPersonalIndex, setCurrentPersonalIndex] = useState(0);
-  const [currentFreelanceIndex, setCurrentFreelanceIndex] = useState(0);
-  const [currentProfessionalIndex, setCurrentProfessionalIndex] = useState(0);
-  const [currentPersonalTestimonialIndex, setCurrentPersonalTestimonialIndex] = useState(0);
-  const [currentFreelanceTestimonialIndex, setCurrentFreelanceTestimonialIndex] = useState(0);
-  const [currentProfessionalTestimonialIndex, setCurrentProfessionalTestimonialIndex] = useState(0);
+  const [projectIndices, setProjectIndices] = useState({ personal: 0, freelance: 0, professional: 0 });
+  const [testimonialIndices, setTestimonialIndices] = useState({ personal: 0, freelance: 0, professional: 0 });
   const [selectedProject, setSelectedProject] = useState(null);
 
   const testimonials = [
     {
       id: 1,
       name: "Sean Herman",
-      role: "Upwork Client",
+      role: "Upwork Client", 
       company: "Kinzoo Inc.",
       content: "Nathaniel was a pleasure to work with. Very patient with me as we built a Roblox Obby where I had a lot of questions. He took feedback and made changes quickly...",
       rating: 5,
+      project: "Kinzoo Enchanted Trail - Roblox Game",
+      date: "Oct 2024 - Feb 2025",
       category: "freelance"
     },
     {
@@ -27,23 +25,51 @@ const MinimalPortfolio = () => {
       role: "Upwork Client",
       content: "This guy is great, he's very polite and patient when it comes to sorting things out during projects. I would most definitely recommended him to others...",
       rating: 5,
+      project: "Whispering Pines - Roblox Game", 
+      date: "Jan 2024 - Present",
       category: "freelance"
     },
     {
       id: 3,
+      name: "Amanda Close",
+      role: "Upwork Client",
+      company: "Dark Roast Releasing LLC.",
+      content: "Great developer, good communication and creative collaborator, problem solving initiative, and extremely knowledgable about the Roblox platform, assets, marketplace, and player base.",
+      rating: 5,
+      project: "Laser Tag Hero - Roblox Game",
+      date: "Aug 2024 - Jun 2025", 
+      category: "freelance"
+    },
+    {
+      id: 4,
+      name: "Ely Santos Jr",
+      role: "Upwork Client",
+      company: "Ely's Agency",
+      content: "Nathaniel is great, he's a native Roblox player that understands the game really well and comes up with ideas that make sense within the Roblox context and solve technical challenges.",
+      rating: 5,
+      project: "Danger Spring - Roblox Game",
+      date: "Jan 2025 - Mar 2025",
+      category: "freelance"
+    },
+    {
+      id: 5,
       name: "Marie Whelan",
       role: "Friend & Beta Tester",
       content: "The LMS app has helped me understand my spending better and be able to set clear budgets.",
       rating: 5,
+      project: "LMS App",
+      date: "Dec 2021",
       category: "personal"
     },
     {
-      id: 4,
+      id: 6,
       name: "Michael Gardner",
       role: "Principal Software Engineer",
-      company: "OnGen",
-      content: "Nathaniel is a great software engineer. He thinks outside the box when it counts and gets important tasks done in a timely manner.",
+      company: "OnGen", 
+      content: "Nathaniel is a great software engineer. He thinks outside the box when it counts and gets important tasks done in a timely manner. I can count on him to solve tough problems...",
       rating: 5,
+      project: "LIS, MyHealthPro, Outreach Portal",
+      date: "Jan 2023",
       category: "professional"
     }
   ];
@@ -53,27 +79,29 @@ const MinimalPortfolio = () => {
       id: 1,
       title: "Pi-Plant App",
       description: "IoT plant monitoring with Go backend, React frontend, and Raspberry Pi sensors.",
-      fullDescription: "A comprehensive IoT plant monitoring system that combines hardware sensors with modern web technologies. The application tracks soil moisture, temperature, humidity, and light levels in real-time.",
+      fullDescription: "A comprehensive IoT plant monitoring system that combines hardware sensors with modern web technologies. The application tracks soil moisture, temperature, humidity, and light levels in real-time, providing actionable insights to plant owners through an intuitive web interface.",
       date: "Aug 2025",
       status: "In Progress",
       category: "personal",
       type: "software",
-      technologies: ["Go", "React", "TypeScript", "Tailwind CSS", "Raspberry Pi 4"],
+      technologies: ["Go", "React", "TypeScript", "Tailwind CSS", "Raspberry Pi 4", "Cloudflare"],
       links: {
         github: "https://github.com/nmerck1/Pi-Plant",
         live: "https://nathanielmerck.com"
       },
       keyFeatures: [
         "Real-time sensor data visualization",
-        "Automated watering alerts and recommendations",
-        "Historical data tracking and analysis"
+        "Automated watering alerts and recommendations", 
+        "Historical data tracking and analysis",
+        "Mobile-responsive dashboard",
+        "Self-hosted on Raspberry Pi infrastructure"
       ]
     },
     {
       id: 2,
       title: "LMS App",
       description: "Full-stack personal finance tracker with budgeting and reporting.",
-      fullDescription: "The Life Management System (LMS) is a comprehensive personal finance management system built to help individuals track expenses, set budgets, and monitor their financial goals.",
+      fullDescription: "The Life Management System (LMS) is a comprehensive personal finance management system built to help individuals track expenses, set budgets, and monitor their financial goals. Features secure user authentication, transaction categorization, and detailed reporting capabilities.",
       date: "Dec 2021",
       status: "Completed",
       category: "personal",
@@ -85,49 +113,57 @@ const MinimalPortfolio = () => {
       keyFeatures: [
         "Secure user authentication system",
         "Transaction tracking and categorization",
-        "Budget planning and monitoring"
+        "Budget planning and monitoring",
+        "Financial reporting and analytics",
+        "Responsive design for mobile and desktop"
       ]
     },
     {
       id: 3,
       title: "Future RNG",
       description: "Multiplayer Roblox card game with inventory system and trading.",
+      fullDescription: "A luck-based multiplayer game where players collect rare cards through randomized rolls. Features a complex rarity system, trading mechanics, and persistent inventory management. Built with scalable architecture to handle hundreds of concurrent players.",
       date: "Jul 2024",
       status: "Completed",
       category: "personal",
       type: "roblox",
-      technologies: ["Lua", "Roblox Studio", "DataStore", "RemoteEvents"],
+      technologies: ["Lua", "Roblox Studio", "DataStore", "RemoteEvents", "TweenService"],
       links: {
         roblox: "https://www.roblox.com/games/18610939216/Future-RNG"
       },
       keyFeatures: [
         "Advanced RNG system with weighted probabilities",
         "Persistent inventory management",
-        "Real-time trading system"
+        "Real-time trading system",
+        "Rarity-based card collection",
+        "Multiplayer social features"
       ]
     },
     {
       id: 4,
       title: "Kinzoo Enchanted Trail",
       description: "Family-friendly Roblox parkour game with puzzles and exploration.",
+      fullDescription: "A family-friendly Roblox adventure game featuring challenging parkour sections, interactive puzzles, and exploration elements set in a magical forest environment. Designed specifically for the Kinzoo brand to engage young players in a safe, educational gaming experience.",
       date: "Nov 2024",
       status: "Completed",
       category: "freelance",
       type: "roblox",
-      technologies: ["Lua", "Roblox Studio", "TweenService", "BodyVelocity"],
+      technologies: ["Lua", "Roblox Studio", "TweenService", "BodyVelocity", "DataStore", "RemoteEvents"],
       links: {
         roblox: "https://www.roblox.com/games/136071239388244/Kinzoo-Enchanted-Trail"
       },
       keyFeatures: [
         "Progressive difficulty parkour challenges",
         "Interactive environmental puzzles",
-        "Hidden collectible system"
+        "Hidden collectible system",
+        "In-game shop with virtual rewards"
       ]
     },
     {
       id: 5,
       title: "MyHealthPro",
       description: "A web app for receiving COVID test kit results.",
+      fullDescription: "A web app for registering a test kit after purchase. Users can get their results within two days after sending in their test kit.",
       date: "Feb 2022",
       status: "Completed",
       category: "professional",
@@ -135,9 +171,7 @@ const MinimalPortfolio = () => {
       technologies: ["C#", "Visual Studio", ".NET 6", "APIs", "MySQL"],
       links: {},
       keyFeatures: [
-        "User registration and login",
-        "Test kit registration",
-        "Results viewing system"
+        "Login, Register, Actions, View Results, etc."
       ]
     }
   ];
@@ -152,61 +186,41 @@ const MinimalPortfolio = () => {
 
   const nextProject = (category) => {
     const projects = getProjectsByCategory(category);
-    switch(category) {
-      case 'personal':
-        setCurrentPersonalIndex((prev) => (prev + 1) % projects.length);
-        break;
-      case 'freelance':
-        setCurrentFreelanceIndex((prev) => (prev + 1) % projects.length);
-        break;
-      case 'professional':
-        setCurrentProfessionalIndex((prev) => (prev + 1) % projects.length);
-        break;
+    if (projects.length > 0) {
+      setProjectIndices(prev => ({
+        ...prev,
+        [category]: (prev[category] + 1) % projects.length
+      }));
     }
   };
 
   const prevProject = (category) => {
     const projects = getProjectsByCategory(category);
-    switch(category) {
-      case 'personal':
-        setCurrentPersonalIndex((prev) => (prev - 1 + projects.length) % projects.length);
-        break;
-      case 'freelance':
-        setCurrentFreelanceIndex((prev) => (prev - 1 + projects.length) % projects.length);
-        break;
-      case 'professional':
-        setCurrentProfessionalIndex((prev) => (prev - 1 + projects.length) % projects.length);
-        break;
+    if (projects.length > 0) {
+      setProjectIndices(prev => ({
+        ...prev,
+        [category]: (prev[category] - 1 + projects.length) % projects.length
+      }));
     }
   };
 
   const nextTestimonial = (category) => {
     const testimonials = getTestimonialsByCategory(category);
-    switch(category) {
-      case 'personal':
-        setCurrentPersonalTestimonialIndex((prev) => (prev + 1) % testimonials.length);
-        break;
-      case 'freelance':
-        setCurrentFreelanceTestimonialIndex((prev) => (prev + 1) % testimonials.length);
-        break;
-      case 'professional':
-        setCurrentProfessionalTestimonialIndex((prev) => (prev + 1) % testimonials.length);
-        break;
+    if (testimonials.length > 0) {
+      setTestimonialIndices(prev => ({
+        ...prev,
+        [category]: (prev[category] + 1) % testimonials.length
+      }));
     }
   };
 
   const prevTestimonial = (category) => {
     const testimonials = getTestimonialsByCategory(category);
-    switch(category) {
-      case 'personal':
-        setCurrentPersonalTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-        break;
-      case 'freelance':
-        setCurrentFreelanceTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-        break;
-      case 'professional':
-        setCurrentProfessionalTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-        break;
+    if (testimonials.length > 0) {
+      setTestimonialIndices(prev => ({
+        ...prev,
+        [category]: (prev[category] - 1 + testimonials.length) % testimonials.length
+      }));
     }
   };
 
@@ -240,21 +254,15 @@ const MinimalPortfolio = () => {
 
   const renderProjectCarousel = (category) => {
     const projects = getProjectsByCategory(category);
-    if (projects.length === 0) return null;
-
-    let currentIndex;
-    switch(category) {
-      case 'personal':
-        currentIndex = currentPersonalIndex;
-        break;
-      case 'freelance':
-        currentIndex = currentFreelanceIndex;
-        break;
-      case 'professional':
-        currentIndex = currentProfessionalIndex;
-        break;
+    if (projects.length === 0) {
+      return (
+        <div className="text-neutral-500 text-sm italic text-center py-8">
+          No {category} projects available...
+        </div>
+      );
     }
 
+    const currentIndex = projectIndices[category];
     const currentProject = projects[currentIndex];
     
     return (
@@ -364,19 +372,7 @@ const MinimalPortfolio = () => {
       );
     }
 
-    let currentIndex;
-    switch(category) {
-      case 'personal':
-        currentIndex = currentPersonalTestimonialIndex;
-        break;
-      case 'freelance':
-        currentIndex = currentFreelanceTestimonialIndex;
-        break;
-      case 'professional':
-        currentIndex = currentProfessionalTestimonialIndex;
-        break;
-    }
-
+    const currentIndex = testimonialIndices[category];
     const currentTestimonial = categoryTestimonials[currentIndex];
 
     return (
@@ -477,9 +473,7 @@ const MinimalPortfolio = () => {
             </button>
           </div>
 
-          {activeTab === 'personal' && renderProjectCarousel('personal')}
-          {activeTab === 'freelance' && renderProjectCarousel('freelance')}
-          {activeTab === 'professional' && renderProjectCarousel('professional')}
+          {renderProjectCarousel(activeTab)}
         </section>
 
         <section className="mb-8">
@@ -557,7 +551,7 @@ const MinimalPortfolio = () => {
                 </p>
               </div>
 
-              {selectedProject.keyFeatures && (
+              {selectedProject.keyFeatures && selectedProject.keyFeatures.length > 0 && (
                 <div>
                   <h3 className="text-white text-sm mb-3">features</h3>
                   <div className="space-y-1 text-sm">
